@@ -64,6 +64,7 @@ public class Board {
         for (int row = 0; row < boardSize; row++) {
             System.out.print((row + 1) + " ");
             for (int col = 0; col < boardSize; col++) {
+
                 char cellValue = revealed[row][col] ? gameBoard[row][col] : ' ';
                 System.out.print("| " + cellValue + " ");
             }

@@ -17,11 +17,12 @@ public class Main {
             //Ifall man träffar mina
             if (row >= 0 && row < gameBoard.boardSize && col >= 0 && col < gameBoard.boardSize) {
                 if (gameBoard.gameBoard[row][col] == '*') {
+                    gameBoard.revealCell(row, col);
                     gameOver = true;
                     System.out.println("Game over! You hit a mine.");
                 } else {
                     // MarkCell-metoden för att placera "X"
-                    gameBoard.markCell(row, col);
+                   // gameBoard.markCell(row, col);
                     // Visar med revealCell-metoden position med X
                     gameBoard.revealCell(row, col);
                     //Räknar antalet X för vinst
