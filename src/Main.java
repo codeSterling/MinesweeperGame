@@ -20,6 +20,7 @@ public class Main {
                     gameBoard.revealCell(row, col);
                     gameOver = true;
                     System.out.println("Game over! You hit a mine.");
+                    gameBoard.showBoardWhenLooses();
                 } else {
                     // MarkCell-metoden för att placera "X"
                    // gameBoard.markCell(row, col);
