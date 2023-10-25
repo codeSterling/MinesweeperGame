@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Board gameBoard = new Board();
+
         Scanner scanner = new Scanner(System.in);
         boolean gameOver = false;
 
@@ -48,6 +49,7 @@ public class Main {
 
         // Stäng scanner om den inte längre behövs
         scanner.close();
+
     }
 }
 
