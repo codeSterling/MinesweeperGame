@@ -12,6 +12,8 @@ public class Board {
     public Board() {
     this.gameBoard = new char[boardSize][boardSize];
     this.revealed = new boolean[boardSize][boardSize];
+    placeMines();
+    fillInNumberOfMines();
     }
 
     public void placeMines() {
@@ -37,5 +39,37 @@ public class Board {
                 System.out.println("--------------------------");
             }
         }
+    }
+
+    public void fillInNumberOfMines() {
+        for(int i = 0; i < boardSize; i++) {
+            for(int j = 0; j < boardSize; j++) {
+                if(gameBoard[i][j] != '*') {
+                    gameBoard[i][j] = (char) (countMines(i, j)+'0');
+                }
+            }
+        }
+    }
+
+    public int countMines(int x, int y) {
+        int numberOfMines = 0;
+        for(int i = -1; i <=1 ; i++) {
+            if(x - i >= 0 && x - i < boardSize) {
+                if(y - 1 >= 0) {
+                    if (gameBoard[x - i][y - 1] == '*') {
+                        numberOfMines++;
+                    }
+                }
+                if (gameBoard[x - i][y] == '*') {
+                    numberOfMines++;
+                }
+                if(y + 1 < boardSize) {
+                    if (gameBoard[x - i][y + 1] == '*') {
+                        numberOfMines++;
+                    }
+                }
+            }
+        }
+        return numberOfMines;
     }
 }
