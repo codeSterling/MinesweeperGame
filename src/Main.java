@@ -30,11 +30,12 @@ public class Main {
                     int markedCells = 0;
                     for (int r = 0; r < gameBoard.boardSize; r++) {
                         for (int c = 0; c < gameBoard.boardSize; c++) {
-                            if (gameBoard.gameBoard[r][c] == 'X') {
+                            if (gameBoard.revealed[r][c]) {
                                 markedCells++;
                             }
                         }
                     }
+                    System.out.println(markedCells);
                     if (markedCells == nonMineCells) {
                         gameOver = true;
                         System.out.println("Congratulations! You win!");
