@@ -7,7 +7,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean gameOver = false;
 
-        System.out.println("Welcome to Minesweeper!");
+        System.out.println("Welcome to Minesweeper!\uD83D\uDCA5");
         // Wincondition
         while (!gameOver) {
             gameBoard.printBoard();
