@@ -2,62 +2,14 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Board gameBoard = new Board();
-
-        Scanner scanner = new Scanner(System.in);
-        boolean gameOver = false;
-
-        System.out.println("Welcome to Minesweeper!\uD83D\uDCA5");
-        // Wincondition
-        while (!gameOver) {
-            gameBoard.printBoard();
-            System.out.print("Enter row and column (e.g., 1 2): ");
-            int row = scanner.nextInt() - 1;
-            int col = scanner.nextInt() - 1;
-            //Ifall man träffar mina
-            if (row >= 0 && row < gameBoard.boardSize && col >= 0 && col < gameBoard.boardSize) {
-                if (gameBoard.gameBoard[row][col] == '*') {
-                    gameBoard.revealCell(row, col);
-                    gameOver = true;
-
-                    System.out.println("Game over! You hit a mine.\uD83D\uDE2D");
-                    gameBoard.showBoardWhenLooses();
-
-                } else {
-                    // MarkCell-metoden för att placera "X"
-                    // gameBoard.markCell(row, col);
-                    // Visar med revealCell-metoden position med X
-                    gameBoard.revealCell(row, col);
-                    //Räknar antalet X för vinst
-                    int nonMineCells = (gameBoard.boardSize * gameBoard.boardSize) - gameBoard.numberOfMines;
-                    int markedCells = 0;
-                    for (int r = 0; r < gameBoard.boardSize; r++) {
-                        for (int c = 0; c < gameBoard.boardSize; c++) {
-                            if (gameBoard.revealed[r][c]) {
-                                markedCells++;
-                            }
-                        }
-                    }
-                    System.out.println(markedCells);
-                    if (markedCells == nonMineCells) {
-                        gameOver = true;
-                        System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
-                        gameBoard.printBoard(); // Visa hela spelplanen med eventuellt resultat
-                    }
-                }
-            } else {
-                System.out.println("Invalid input. Please try again.");
-            }
-        }
 
         
-       
-        System.out.println("Thank you for playing!");
-
-        // Stäng scanner om den inte längre behövs
-        scanner.close();
+        do {
+            Board gameBoard = new Board();
+            Game game = new Game(gameBoard);
+            System.out.println("Welcome to Minesweeper!");
+            game.start();
+        } while (game.playAgain());
 
     }
 }
-
-
