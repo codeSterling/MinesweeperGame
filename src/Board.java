@@ -23,7 +23,6 @@ public class Board {
                 revealed[i][j] = false;
             }
         }
-
     }
 
     public void placeMines() {
@@ -105,7 +104,6 @@ public class Board {
             }
         }
     }
-
 }
 
 
