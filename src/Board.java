@@ -5,8 +5,6 @@ public class Board {
     public char[][] gameBoard;
     int boardSize = 6;
     int numberOfMines = 10;
-    boolean boardFull = false;
-    boolean hasWinner = false;
     boolean[][] revealed;
 
     public Board() {
@@ -17,7 +15,7 @@ public class Board {
         placeMines();
         fillInNumberOfMines();
     }
-    //Återställer planen
+    //Restore the board
     public void initializeBoard() {
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
@@ -44,12 +42,6 @@ public class Board {
     public void revealCell(int row, int col) {
         if (!revealed[row][col]) {
             revealed[row][col] = true;
-        }
-    }
-
-    public void markCell(int row, int col) {
-        if (!revealed[row][col]) {
-            gameBoard[row][col] = 'X';
         }
     }
 
@@ -103,7 +95,7 @@ public class Board {
         }
         return numberOfMines;
     }
-
+    //Shows the bomb when hitting it
     public void showBoardWhenLooses() {
         for(int i = 0; i < boardSize; i++) {
             for(int j = 0; j < boardSize; j++) {
