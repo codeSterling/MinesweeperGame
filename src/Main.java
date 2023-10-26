@@ -19,6 +19,10 @@ public class Main {
                 if (gameBoard.gameBoard[row][col] == '*') {
                     gameBoard.revealCell(row, col);
                     gameOver = true;
+
+                    System.out.println("Game over! You hit a mine.\uD83D\uDE2D");
+                    gameBoard.showBoardWhenLooses();
+
                 } else {
                     // MarkCell-metoden för att placera "X"
                     // gameBoard.markCell(row, col);
@@ -38,6 +42,7 @@ public class Main {
                     if (markedCells == nonMineCells) {
                         gameOver = true;
                         System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                        gameBoard.printBoard(); // Visa hela spelplanen med eventuellt resultat
                     }
                 }
             } else {
@@ -45,8 +50,8 @@ public class Main {
             }
         }
 
-        gameBoard.printBoard(); // Visa hela spelplanen med eventuellt resultat
-        System.out.println("Game over. You hit a mine\uD83D\uDE2D");
+        
+       
         System.out.println("Thank you for playing!");
 
         // Stäng scanner om den inte längre behövs
