@@ -40,26 +40,26 @@ public class Board {
         }
     }
 
-    public void revealCell(int row, int col) {
-        if (!revealed[row][col]) {
-            revealed[row][col] = true;
+    public void revealCell(int r, int c) {
+        if (!revealed[r][c]) {
+            revealed[r][c] = true;
         }
-        showBlanksNextToSquare(row, col);
+        showBlanksNextToSquare(r, c);
     }
 
     public void printBoard() {
         System.out.println("Game Board:");
         System.out.print(" ");
-        for (int col = 0; col < boardSize; col++) {
-            System.out.print("   " + (col + 1));
+        for (int c = 0; c < boardSize; c++) {
+            System.out.print("   " + (c + 1));
         }
         System.out.println();
 
-        for (int row = 0; row < boardSize; row++) {
-            System.out.print((row + 1) + " ");
-            for (int col = 0; col < boardSize; col++) {
+        for (int r = 0; r < boardSize; r++) {
+            System.out.print((r + 1) + " ");
+            for (int c = 0; c < boardSize; c++) {
 
-                char cellValue = revealed[row][col] ? gameBoard[row][col] : ' ';
+                char cellValue = revealed[r][c] ? gameBoard[r][c] : ' ';
                 System.out.print("| " + cellValue + " ");
             }
             System.out.println("|");
@@ -148,6 +148,3 @@ public class Board {
         return numbersRevealed;
     }
 }
-
-
-
