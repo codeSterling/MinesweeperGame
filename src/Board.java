@@ -55,9 +55,9 @@ public class Board {
 
     public void printBoard() {
         System.out.println("Game Board:");
-        System.out.print("  ");
+        System.out.print(" ");
         for (int col = 0; col < boardSize; col++) {
-            System.out.print((col + 1) + "   ");
+            System.out.print("   " + (col + 1));
         }
         System.out.println();
 
