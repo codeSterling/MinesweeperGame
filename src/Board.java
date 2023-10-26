@@ -4,7 +4,7 @@ public class Board {
     Random rand = new Random();
     public char[][] gameBoard;
     int boardSize = 6;
-    int numberOfMines = 10;
+    int numberOfMines = 1;
     boolean[][] revealed;
 
     public Board() {
@@ -15,6 +15,7 @@ public class Board {
         placeMines();
         fillInNumberOfMines();
     }
+    
     //Restore the board
     public void initializeBoard() {
         for (int i = 0; i < boardSize; i++) {
