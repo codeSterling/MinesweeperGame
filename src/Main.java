@@ -7,7 +7,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean gameOver = false;
 
-        System.out.println("Welcome to Minesweeper!");
+        System.out.println("Welcome to Minesweeper!\uD83D\uDCA5");
         // Wincondition
         while (!gameOver) {
             gameBoard.printBoard();
@@ -19,11 +19,13 @@ public class Main {
                 if (gameBoard.gameBoard[row][col] == '*') {
                     gameBoard.revealCell(row, col);
                     gameOver = true;
-                    System.out.println("Game over! You hit a mine.");
+
+                    System.out.println("Game over! You hit a mine.\uD83D\uDE2D");
                     gameBoard.showBoardWhenLooses();
+
                 } else {
                     // MarkCell-metoden för att placera "X"
-                   // gameBoard.markCell(row, col);
+                    // gameBoard.markCell(row, col);
                     // Visar med revealCell-metoden position med X
                     gameBoard.revealCell(row, col);
                     //Räknar antalet X för vinst
@@ -39,7 +41,8 @@ public class Main {
                     System.out.println(markedCells);
                     if (markedCells == nonMineCells) {
                         gameOver = true;
-                        System.out.println("Congratulations! You win!");
+                        System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                        gameBoard.printBoard(); // Visa hela spelplanen med eventuellt resultat
                     }
                 }
             } else {
@@ -47,8 +50,9 @@ public class Main {
             }
         }
 
-        gameBoard.printBoard(); // Visa hela spelplanen med eventuellt resultat
-        System.out.println("Game over. Thank you for playing!");
+        
+       
+        System.out.println("Thank you for playing!");
 
         // Stäng scanner om den inte längre behövs
         scanner.close();
