@@ -22,8 +22,6 @@ public class Main {
                     System.out.println("Game over! You hit a mine.");
                     gameBoard.showBoardWhenLooses();
                 } else {
-                    // MarkCell-metoden för att placera "X"
-                   // gameBoard.markCell(row, col);
                     // Visar med revealCell-metoden position med X
                     gameBoard.revealCell(row, col);
                     //Räknar antalet X för vinst
@@ -36,8 +34,8 @@ public class Main {
                             }
                         }
                     }
-                    System.out.println(markedCells);
-                    if (markedCells == nonMineCells) {
+                    //System.out.println(gameBoard.getMarkedCells());
+                    if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
                         gameOver = true;
                         System.out.println("Congratulations! You win!");
                     }
