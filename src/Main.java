@@ -7,7 +7,7 @@ public class Main {
         Player player = new Player();
         do {
             Board gameBoard = new Board();
-            game = new Game(gameBoard);
+            game = new Game(gameBoard, player);
             System.out.println("Welcome " + player.getName() + ", to Minesweeper!");
             game.start();
         } while (game.playAgain());

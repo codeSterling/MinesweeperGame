@@ -2,12 +2,14 @@ import java.util.Scanner;
 
 public class Game {
     private Board gameBoard;
+    private Player player;
     private boolean gameOver;
 
     Scanner scanner = new Scanner(System.in);
 
-    public Game(Board board) {
+    public Game(Board board, Player player) {
         this.gameBoard = board;
+        this.gameOver = false;
         this.gameOver = false;
     }
 
@@ -45,17 +47,20 @@ public class Game {
                     if (markedCells == nonMineCells) {
                         gameOver = true;
                         System.out.println("Congratulations! You win!");
+                        player.incrementWins();
+                        System.out.println("You have won " + player.getWins() + " times!");
                     }
                 }
-            } else {
-                System.out.println("Invalid input. Please try again.");
             }
+         else{
+            System.out.println("Invalid input. Please try again.");
         }
+    }
 
         gameBoard.printBoard(); // Visa hela spelplanen med eventuellt resultat
         System.out.println("Game over. Thank you for playing!");
 
-    }
+}
 
     public boolean playAgain() {
         System.out.print("Do you want to play again? (Yes/No): ");
