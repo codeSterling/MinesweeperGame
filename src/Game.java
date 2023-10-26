@@ -60,8 +60,16 @@ public class Game {
 
     }
         public boolean playAgain () {
-            System.out.print("Do you want to play again? (Yes/No): ");
+          while (true) {
+            System.out.println("Do you want to play again? (Yes/No): ");
             String answer = scanner.next();
-            return answer.equalsIgnoreCase("Yes");
+            if (answer.equalsIgnoreCase("Yes")) {
+                return true;
+            } else if (answer.equalsIgnoreCase("No")) {
+                return false;
+            } else {
+                System.out.println("Invalid input. Please enter 'Yes' or 'No'. ");
+            }
+          }
         }
     }
