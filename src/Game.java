@@ -51,7 +51,7 @@ public class Game {
         }
 
         gameBoard.printBoard();
-        System.out.println("Game over. Thank you for playing!");
+        System.out.println("Thank you for playing!");
 
     }
 
