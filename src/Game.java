@@ -24,7 +24,7 @@ public class Game {
                 if (gameBoard.gameBoard[row][col] == '*') {
                     gameBoard.revealCell(row, col);
                     gameOver = true;
-                    System.out.println("Game over! You hit a mine.");
+                    System.out.println("Game over! You hit a mine\uD83D\uDE2D");
                     gameBoard.showBoardWhenLooses();
                 } else {
                     // Visar med revealCell-metoden position med X
@@ -41,7 +41,7 @@ public class Game {
                     }
                     if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
                         gameOver = true;
-                        System.out.println("Congratulations! You win!");
+                        System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
                     }
                 }
             } else {
