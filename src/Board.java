@@ -4,7 +4,7 @@ public class Board {
     Random rand = new Random();
     public char[][] gameBoard;
     int boardSize = 6;
-    int numberOfMines = 1;
+    int numberOfMines = 10;
     boolean[][] revealed;
 
     public Board() {
@@ -44,6 +44,7 @@ public class Board {
         if (!revealed[row][col]) {
             revealed[row][col] = true;
         }
+        showBlanksNextToSquare(row, col);
     }
 
     public void printBoard() {
@@ -96,6 +97,7 @@ public class Board {
         }
         return numberOfMines;
     }
+
     //Shows the bomb when hitting it
     public void showBoardWhenLooses() {
         for(int i = 0; i < boardSize; i++) {
@@ -107,6 +109,44 @@ public class Board {
         }
     }
 
+    public void showBlanksNextToSquare(int r, int c) {
+        if (gameBoard[r][c] == '0') {
+            for (int i = -1; i <= 1; i++) {
+                if (r - i >= 0 && r - i < boardSize) {
+                    if (c - 1 >= 0 && !revealed[r - i][c - 1]) {
+                        revealed[r - i][c - 1] = true;
+                        if (gameBoard[r - i][c - 1] == '0') {
+                            showBlanksNextToSquare(r - i, c - 1);
+                        }
+                    }
+                    if ( !revealed[r - i][c]) {
+                        revealed[r - i][c] = true;
+                        if (gameBoard[r - i][c] == '0') {
+                            showBlanksNextToSquare(r - i, c);
+                        }
+                    }
+                    if (c + 1 < boardSize && !revealed[r - i][c + 1]) {
+                        revealed[r - i][c + 1] = true;
+                        if (gameBoard[r - i][c + 1] == '0') {
+                            showBlanksNextToSquare(r - i, c + 1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public int numberOfSquaresRevealed() {
+        int numbersRevealed = 0;
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (revealed[i][j]) {
+                    numbersRevealed++;
+                }
+            }
+        }
+        return numbersRevealed;
+    }
 }
 
 
