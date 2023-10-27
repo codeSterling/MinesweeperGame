@@ -64,9 +64,7 @@ public class Game {
                 scanner.nextLine();
 
             }
-         else{
-            System.out.println("Invalid input. Please try again.");
-        }
+         
     }
 
         gameBoard.printBoard();
