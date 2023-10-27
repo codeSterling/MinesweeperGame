@@ -4,8 +4,10 @@ public class Board {
     Random rand = new Random();
     public char[][] gameBoard;
     int boardSize = 6;
-    int numberOfMines = 10;
+    int numberOfMines = 5;
     boolean[][] revealed;
+
+    String COLOR_RESET = "\u001B[0m";
 
     public Board() {
 
@@ -60,7 +62,7 @@ public class Board {
             for (int c = 0; c < boardSize; c++) {
 
                 char cellValue = revealed[r][c] ? gameBoard[r][c] : ' ';
-                System.out.print("| " + cellValue + " ");
+                System.out.print("| " + setColorsOnNumbers(cellValue) + cellValue + COLOR_RESET + " ");
             }
             System.out.println("|");
         }
@@ -146,5 +148,31 @@ public class Board {
             }
         }
         return numbersRevealed;
+    }
+
+    public String setColorsOnNumbers(char value) {
+        switch (value) {
+            case '1' -> {
+                return "\u001B[34m";
+            }
+            case '2' -> {
+                return "\u001B[32m";
+            }
+            case '3' -> {
+                return "\u001B[31m";
+            }
+            case '4' -> {
+                return "\u001B[35m";
+            }
+            case '5' -> {
+                return "\u001B[33m";
+            }
+            case '6' -> {
+                return "\u001B[36m";
+            }
+            default ->  {
+                return "\u001B[37m";
+            }
+        }
     }
 }
