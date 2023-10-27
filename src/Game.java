@@ -68,7 +68,7 @@ public class Game {
             String answer = scanner.next();
             return answer.equalsIgnoreCase("Yes");
         }
-    }
+    
 
 }
 
