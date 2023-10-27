@@ -2,10 +2,14 @@ import java.util.Random;
 
 public class Board {
     Random rand = new Random();
-    public char[][] gameBoard;
-    int boardSize = 6;
-    int numberOfMines = 10;
-    boolean[][] revealed;
+
+    private char[][] gameBoard;
+    private int boardSize = 6;
+    private int numberOfMines = 10;
+    private boolean[][] revealed;
+
+
+    String COLOR_RESET = "\u001B[0m";
 
     public Board() {
 
@@ -15,7 +19,39 @@ public class Board {
         placeMines();
         fillInNumberOfMines();
     }
-    
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public void setBoardSize(int boardSize) {
+        this.boardSize = boardSize;
+    }
+
+    public int getNumberOfMines() {
+        return numberOfMines;
+    }
+
+    public void setNumberOfMines(int numberOfMines) {
+        this.numberOfMines = numberOfMines;
+    }
+
+    public char getGameBoardElement(int rowIndex, int colIndex) {
+        return this.gameBoard[rowIndex][colIndex];
+    }
+
+    public void setGameBoardElement(int rowIndex, int colIndex, char newValue) {
+        this.gameBoard[rowIndex][colIndex] = newValue;
+    }
+
+    public boolean getRevealedValue(int rowIndex, int colIndex) {
+        return this.revealed[rowIndex][colIndex];
+    }
+
+    public void setRevealedValue(int rowIndex, int colIndex, boolean newValue) {
+        this.revealed[rowIndex][colIndex] = newValue;
+    }
+
     //Restore the board
     public void initializeBoard() {
         for (int i = 0; i < boardSize; i++) {
@@ -59,7 +95,7 @@ public class Board {
             for (int c = 0; c < boardSize; c++) {
 
                 char cellValue = revealed[r][c] ? gameBoard[r][c] : ' ';
-                System.out.print("| " + cellValue + " ");
+                System.out.print("| " + setColorsOnNumbers(cellValue) + cellValue + COLOR_RESET + " ");
             }
             System.out.println("|");
         }
@@ -146,5 +182,31 @@ public class Board {
             }
         }
         return numbersRevealed;
+    }
+
+    public String setColorsOnNumbers(char value) {
+        switch (value) {
+            case '1' -> {
+                return "\u001B[34m";
+            }
+            case '2' -> {
+                return "\u001B[32m";
+            }
+            case '3' -> {
+                return "\u001B[31m";
+            }
+            case '4' -> {
+                return "\u001B[35m";
+            }
+            case '5' -> {
+                return "\u001B[33m";
+            }
+            case '6' -> {
+                return "\u001B[36m";
+            }
+            default ->  {
+                return "\u001B[37m";
+            }
+        }
     }
 }
