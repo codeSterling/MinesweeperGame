@@ -4,7 +4,7 @@ public class Board {
     Random rand = new Random();
     private char[][] gameBoard;
     private int boardSize = 6;
-    private int numberOfMines = 5;
+    private int numberOfMines = 10;
     private boolean[][] revealed;
 
     public Board() {
