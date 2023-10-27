@@ -2,12 +2,14 @@ import java.util.Scanner;
 
 public class Game {
     private Board gameBoard;
+    private Player player;
     private boolean gameOver;
 
     Scanner scanner = new Scanner(System.in);
 
-    public Game(Board board) {
+    public Game(Board board, Player player) {
         this.gameBoard = board;
+        this.gameOver = false;
         this.gameOver = false;
     }
 
@@ -28,6 +30,10 @@ public class Game {
                     if (gameBoard.gameBoard[row][col] == '*') {
                         gameBoard.revealCell(row, col);
                         gameOver = true;
+
+                       
+                       
+
                         System.out.println("Game over! You hit a mine.");
                         gameBoard.showBoardWhenLooses();
                         gameBoard.printBoard();
@@ -41,26 +47,30 @@ public class Game {
                       if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
                         gameOver = true;
                         System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                         player.incrementWins();
+                        System.out.println("You have won " + player.getWins() + " times!");
                     }
                         
+
                     }
 
                 } else {
-                    System.out.println("Invalid input. Please enter row and column within the valid range.");
-
-                    
+                    System.out.println("Invalid input. Please enter row and column within the valid range.");                 
 
                 }
+
             } catch (java.util.InputMismatchException e) {
                 System.out.println("Invalid input. Please enter row and column as integers, e.g., 1 2.");
                 scanner.nextLine();
-            }
-        }
 
+            }
+         else{
+            System.out.println("Invalid input. Please try again.");
+        }
+    }
 
         gameBoard.printBoard();
         System.out.println("Thank you for playing!");
-
 
     }
         public boolean playAgain () {
