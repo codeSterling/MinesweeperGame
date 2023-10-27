@@ -19,52 +19,74 @@ public class Game {
         while (!gameOver) {
             gameBoard.printBoard();
             System.out.print("Enter row and column (e.g., 1 2): ");
-            int row = scanner.nextInt() - 1;
-            int col = scanner.nextInt() - 1;
-            //Ifall man träffar mina
-            if (row >= 0 && row < gameBoard.boardSize && col >= 0 && col < gameBoard.boardSize) {
-                if (gameBoard.gameBoard[row][col] == '*') {
-                    gameBoard.revealCell(row, col);
-                    gameOver = true;
-                    System.out.println("Game over! You hit a mine.");
-                    gameBoard.showBoardWhenLooses();
-                } else {
-                    // MarkCell-metoden för att placera "X"
-                    // gameBoard.markCell(row, col);
-                    // Visar med revealCell-metoden position med X
-                    gameBoard.revealCell(row, col);
-                    //Räknar antalet X för vinst
-                    int nonMineCells = (gameBoard.boardSize * gameBoard.boardSize) - gameBoard.numberOfMines;
-                    int markedCells = 0;
-                    for (int r = 0; r < gameBoard.boardSize; r++) {
-                        for (int c = 0; c < gameBoard.boardSize; c++) {
-                            if (gameBoard.revealed[r][c]) {
-                                markedCells++;
-                            }
-                        }
-                    }
-                    System.out.println(markedCells);
-                    if (markedCells == nonMineCells) {
+
+            try {
+                int row = scanner.nextInt();
+                int col = scanner.nextInt();
+                //Ifall man träffar mina
+                if (row >= 1 && row <= gameBoard.boardSize && col >= 1 && col <= gameBoard.boardSize) {
+                    row--;
+                    col--;
+                    if (gameBoard.gameBoard[row][col] == '*') {
+                        gameBoard.revealCell(row, col);
                         gameOver = true;
-                        System.out.println("Congratulations! You win!");
-                        player.incrementWins();
+
+                       
+                       
+
+                        System.out.println("Game over! You hit a mine.");
+                        gameBoard.showBoardWhenLooses();
+                        gameBoard.printBoard();
+                    } else {
+                        // Visar med revealCell-metoden position med X
+                        gameBoard.revealCell(row, col);
+                        //Räknar antalet X för vinst
+                        int nonMineCells = (gameBoard.boardSize * gameBoard.boardSize) - gameBoard.numberOfMines;
+                        int markedCells = 0;
+                      
+                      if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
+                        gameOver = true;
+                        System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                         player.incrementWins();
                         System.out.println("You have won " + player.getWins() + " times!");
                     }
+                        
+
+                    }
+
+                } else {
+                    System.out.println("Invalid input. Please enter row and column within the valid range.");                 
+
                 }
+
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Invalid input. Please enter row and column as integers, e.g., 1 2.");
+                scanner.nextLine();
+
             }
          else{
             System.out.println("Invalid input. Please try again.");
         }
     }
 
-        gameBoard.printBoard(); // Visa hela spelplanen med eventuellt resultat
-        System.out.println("Game over. Thank you for playing!");
+        gameBoard.printBoard();
+        System.out.println("Thank you for playing!");
 
-}
-
-    public boolean playAgain() {
-        System.out.print("Do you want to play again? (Yes/No): ");
-        String answer = scanner.next();
-        return answer.equalsIgnoreCase("Yes");
     }
+        public boolean playAgain () {
+          while (true) {
+            System.out.println("Do you want to play again? (Yes/No): ");
+            String answer = scanner.next();
+            if (answer.equalsIgnoreCase("Yes")) {
+                return true;
+            } else if (answer.equalsIgnoreCase("No")) {
+                return false;
+            } else {
+                System.out.println("Invalid input. Please enter 'Yes' or 'No'. ");
+            }
+          }
+        }
+    
+
 }
+

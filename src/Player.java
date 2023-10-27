@@ -6,7 +6,7 @@ public class Player {
 
     public Player() {
         Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter username");
+        System.out.println("Please enter your username: ");
 
         this.name = myObj.nextLine();
     }

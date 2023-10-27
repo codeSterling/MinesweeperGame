@@ -5,8 +5,6 @@ public class Board {
     public char[][] gameBoard;
     int boardSize = 6;
     int numberOfMines = 10;
-    boolean boardFull = false;
-    boolean hasWinner = false;
     boolean[][] revealed;
 
     public Board() {
@@ -17,7 +15,8 @@ public class Board {
         placeMines();
         fillInNumberOfMines();
     }
-    //Återställer planen
+    
+    //Restore the board
     public void initializeBoard() {
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
@@ -25,7 +24,6 @@ public class Board {
                 revealed[i][j] = false;
             }
         }
-
     }
 
     public void placeMines() {
@@ -41,31 +39,26 @@ public class Board {
         }
     }
 
-    public void revealCell(int row, int col) {
-        if (!revealed[row][col]) {
-            revealed[row][col] = true;
+    public void revealCell(int r, int c) {
+        if (!revealed[r][c]) {
+            revealed[r][c] = true;
         }
-    }
-
-    public void markCell(int row, int col) {
-        if (!revealed[row][col]) {
-            gameBoard[row][col] = 'X';
-        }
+        showBlanksNextToSquare(r, c);
     }
 
     public void printBoard() {
         System.out.println("Game Board:");
         System.out.print(" ");
-        for (int col = 0; col < boardSize; col++) {
-            System.out.print("   " + (col + 1));
+        for (int c = 0; c < boardSize; c++) {
+            System.out.print("   " + (c + 1));
         }
         System.out.println();
 
-        for (int row = 0; row < boardSize; row++) {
-            System.out.print((row + 1) + " ");
-            for (int col = 0; col < boardSize; col++) {
+        for (int r = 0; r < boardSize; r++) {
+            System.out.print((r + 1) + " ");
+            for (int c = 0; c < boardSize; c++) {
 
-                char cellValue = revealed[row][col] ? gameBoard[row][col] : ' ';
+                char cellValue = revealed[r][c] ? gameBoard[r][c] : ' ';
                 System.out.print("| " + cellValue + " ");
             }
             System.out.println("|");
@@ -104,6 +97,7 @@ public class Board {
         return numberOfMines;
     }
 
+    //Shows the bomb when hitting it
     public void showBoardWhenLooses() {
         for(int i = 0; i < boardSize; i++) {
             for(int j = 0; j < boardSize; j++) {
@@ -114,7 +108,43 @@ public class Board {
         }
     }
 
+    public void showBlanksNextToSquare(int r, int c) {
+        if (gameBoard[r][c] == '0') {
+            for (int i = -1; i <= 1; i++) {
+                if (r - i >= 0 && r - i < boardSize) {
+                    if (c - 1 >= 0 && !revealed[r - i][c - 1]) {
+                        revealed[r - i][c - 1] = true;
+                        if (gameBoard[r - i][c - 1] == '0') {
+                            showBlanksNextToSquare(r - i, c - 1);
+                        }
+                    }
+                    if ( !revealed[r - i][c]) {
+                        revealed[r - i][c] = true;
+                        if (gameBoard[r - i][c] == '0') {
+                            showBlanksNextToSquare(r - i, c);
+                        }
+                    }
+                    if (c + 1 < boardSize && !revealed[r - i][c + 1]) {
+                        revealed[r - i][c + 1] = true;
+                        if (gameBoard[r - i][c + 1] == '0') {
+                            showBlanksNextToSquare(r - i, c + 1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public int numberOfSquaresRevealed() {
+        int numbersRevealed = 0;
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (revealed[i][j]) {
+                    numbersRevealed++;
+                }
+            }
+        }
+        return numbersRevealed;
+    }
 }
-
-
-
