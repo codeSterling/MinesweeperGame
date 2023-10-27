@@ -25,7 +25,7 @@ public class Game {
                 int row = scanner.nextInt();
                 int col = scanner.nextInt();
                 //Ifall man träffar mina
-               if (row >= 1 && row < gameBoard.getBoardSize() && col >= 1 && col < gameBoard.getBoardSize()) {
+               if (row >= 1 && row <= gameBoard.getBoardSize() && col >= 1 && col <= gameBoard.getBoardSize()) {
                     row--;
                     col--;
                     if (gameBoard.getGameBoardElement(row, col) == '*') {
