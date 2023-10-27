@@ -5,10 +5,11 @@ public class Main {
 
 
         Game game;
+        Player player = new Player();
         do {
             Board gameBoard = new Board();
             game = new Game(gameBoard);
-            System.out.println("Welcome to Minesweeper!");
+            System.out.println("Welcome " + player.getName() + " to Minesweeper!\uD83D\uDCA5");
             game.start();
         } while (game.playAgain());
 

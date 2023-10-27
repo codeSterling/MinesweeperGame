@@ -17,6 +17,7 @@ public class Game {
         while (!gameOver) {
             gameBoard.printBoard();
             System.out.print("Enter row and column (e.g., 1 2): ");
+
             try {
                 int row = scanner.nextInt();
                 int col = scanner.nextInt();
@@ -36,27 +37,30 @@ public class Game {
                         //Räknar antalet X för vinst
                         int nonMineCells = (gameBoard.boardSize * gameBoard.boardSize) - gameBoard.numberOfMines;
                         int markedCells = 0;
-                        for (int r = 0; r < gameBoard.boardSize; r++) {
-                            for (int c = 0; c < gameBoard.boardSize; c++) {
-                                if (gameBoard.revealed[r][c]) {
-                                    markedCells++;
-                                }
-                            }
-                        }
-                        if (markedCells == nonMineCells) {
-                            gameOver = true;
-                            System.out.println("Congratulations! You win!");
-                            gameBoard.printBoard();
-                        }
+                      
+                      if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
+                        gameOver = true;
+                        System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
                     }
+                        
+                    }
+
                 } else {
                     System.out.println("Invalid input. Please enter row and column within the valid range.");
+
+                    
+
                 }
             } catch (java.util.InputMismatchException e) {
                 System.out.println("Invalid input. Please enter row and column as integers, e.g., 1 2.");
                 scanner.nextLine();
             }
         }
+
+
+        gameBoard.printBoard();
+        System.out.println("Thank you for playing!");
+
 
     }
         public boolean playAgain () {
@@ -65,3 +69,6 @@ public class Game {
             return answer.equalsIgnoreCase("Yes");
         }
     }
+
+}
+
