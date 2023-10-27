@@ -20,19 +20,17 @@ public class Game {
             gameBoard.printBoard();
             System.out.print("Enter row and column (e.g., 1 2): ");
 
+
             try {
                 int row = scanner.nextInt();
                 int col = scanner.nextInt();
                 //Ifall man träffar mina
-                if (row >= 1 && row <= gameBoard.boardSize && col >= 1 && col <= gameBoard.boardSize) {
+               if (row >= 1 && row < gameBoard.getBoardSize() && col >= 1 && col < gameBoard.getBoardSize()) {
                     row--;
                     col--;
-                    if (gameBoard.gameBoard[row][col] == '*') {
+                    if (gameBoard.getGameBoardElement(row, col) == '*') {
                         gameBoard.revealCell(row, col);
                         gameOver = true;
-
-                       
-                       
 
                         System.out.println("Game over! You hit a mine.");
                         gameBoard.showBoardWhenLooses();
@@ -41,10 +39,11 @@ public class Game {
                         // Visar med revealCell-metoden position med X
                         gameBoard.revealCell(row, col);
                         //Räknar antalet X för vinst
-                        int nonMineCells = (gameBoard.boardSize * gameBoard.boardSize) - gameBoard.numberOfMines;
+                        int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize()) - gameBoard.getNumberOfMines();
                         int markedCells = 0;
                       
                       if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
+
                         gameOver = true;
                         System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
                          player.incrementWins();
