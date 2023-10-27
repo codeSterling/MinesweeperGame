@@ -24,7 +24,6 @@ public class Board {
                 revealed[i][j] = false;
             }
         }
-
     }
 
     public void placeMines() {
@@ -135,6 +134,7 @@ public class Board {
             }
         }
     }
+
 
     public int numberOfSquaresRevealed() {
         int numbersRevealed = 0;
