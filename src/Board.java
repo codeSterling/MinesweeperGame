@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class Board {
     Random rand = new Random();
-    public char[][] gameBoard;
-    int boardSize = 6;
-    int numberOfMines = 10;
-    boolean[][] revealed;
+    private char[][] gameBoard;
+    private int boardSize = 6;
+    private int numberOfMines = 5;
+    private boolean[][] revealed;
 
     public Board() {
 
@@ -15,7 +15,39 @@ public class Board {
         placeMines();
         fillInNumberOfMines();
     }
-    
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public void setBoardSize(int boardSize) {
+        this.boardSize = boardSize;
+    }
+
+    public int getNumberOfMines() {
+        return numberOfMines;
+    }
+
+    public void setNumberOfMines(int numberOfMines) {
+        this.numberOfMines = numberOfMines;
+    }
+
+    public char getGameBoardElement(int rowIndex, int colIndex) {
+        return this.gameBoard[rowIndex][colIndex];
+    }
+
+    public void setGameBoardElement(int rowIndex, int colIndex, char newValue) {
+        this.gameBoard[rowIndex][colIndex] = newValue;
+    }
+
+    public boolean getRevealedValue(int rowIndex, int colIndex) {
+        return this.revealed[rowIndex][colIndex];
+    }
+
+    public void setRevealedValue(int rowIndex, int colIndex, boolean newValue) {
+        this.revealed[rowIndex][colIndex] = newValue;
+    }
+
     //Restore the board
     public void initializeBoard() {
         for (int i = 0; i < boardSize; i++) {
