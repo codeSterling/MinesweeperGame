@@ -8,8 +8,10 @@ public class Main {
         Player player = new Player();
         do {
             Board gameBoard = new Board();
-            game = new Game(gameBoard);
-            System.out.println("Welcome " + player.getName() + " to Minesweeper!\uD83D\uDCA5");
+
+            game = new Game(gameBoard, player);
+            System.out.println("Welcome " + player.getName() + ", to Minesweeper!\uD83D\uDCA5");
+
             game.start();
         } while (game.playAgain());
 
