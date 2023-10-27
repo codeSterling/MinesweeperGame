@@ -204,6 +204,9 @@ public class Board {
             case '6' -> {
                 return "\u001B[36m";
             }
+            case '*' -> {
+                return "\u001B[31m";
+            }
             default ->  {
                 return "\u001B[37m";
             }

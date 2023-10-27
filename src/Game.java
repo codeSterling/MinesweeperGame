@@ -24,6 +24,7 @@ public class Game {
             try {
                 int row = scanner.nextInt();
                 int col = scanner.nextInt();
+                scanner.nextLine();
                 //Ifall man träffar mina
                if (row >= 1 && row <= gameBoard.getBoardSize() && col >= 1 && col <= gameBoard.getBoardSize()) {
                     row--;
@@ -34,7 +35,6 @@ public class Game {
 
                         System.out.println("Game over! You hit a mine.");
                         gameBoard.showBoardWhenLooses();
-                        gameBoard.printBoard();
                     } else {
                         // Visar med revealCell-metoden position med X
                         gameBoard.revealCell(row, col);
@@ -73,7 +73,7 @@ public class Game {
         public boolean playAgain () {
           while (true) {
             System.out.println("Do you want to play again? (Yes/No): ");
-            String answer = scanner.next();
+            String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("Yes")) {
                 return true;
             } else if (answer.equalsIgnoreCase("No")) {
