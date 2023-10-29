@@ -4,17 +4,21 @@ public class Board {
     Random rand = new Random();
 
     private char[][] gameBoard;
-    private int boardSize = 6;
-    private int numberOfMines = 10;
+    private int boardSize ;
+    private int numberOfMines;
     private boolean[][] revealed;
 
 
     String COLOR_RESET = "\u001B[0m";
 
-    public Board() {
+    public Board(int boardSize) {
+        setBoardSize(boardSize);
 
         this.gameBoard = new char[boardSize][boardSize];
         this.revealed = new boolean[boardSize][boardSize];
+        // Beräkna antalet minor 28% av totala antalet rutor; 6x6 10 minor...
+
+        this.numberOfMines = (int) (boardSize * boardSize * 0.28);
         initializeBoard();
         placeMines();
         fillInNumberOfMines();
@@ -95,7 +99,8 @@ public class Board {
             for (int c = 0; c < boardSize; c++) {
 
                 char cellValue = revealed[r][c] ? gameBoard[r][c] : ' ';
-                System.out.print("| " + setColorsOnNumbers(cellValue) + cellValue + COLOR_RESET + " ");
+                System.out.print("| " + setColorsOnNumbers(cellValue)
+                        + cellValue + COLOR_RESET + " ");
             }
             System.out.println("|");
         }

@@ -9,7 +9,7 @@ public class Game {
 
     public Game(Board board, Player player) {
         this.gameBoard = board;
-        this.gameOver = false;
+        this.player = player;
         this.gameOver = false;
     }
 
@@ -25,7 +25,8 @@ public class Game {
                 int row = scanner.nextInt();
                 int col = scanner.nextInt();
                 //Ifall man träffar mina
-               if (row >= 1 && row <= gameBoard.getBoardSize() && col >= 1 && col <= gameBoard.getBoardSize()) {
+               if (row >= 1 && row <= gameBoard.getBoardSize()
+                       && col >= 1 && col <= gameBoard.getBoardSize()) {
                     row--;
                     col--;
                     if (gameBoard.getGameBoardElement(row, col) == '*') {
@@ -39,7 +40,8 @@ public class Game {
                         // Visar med revealCell-metoden position med X
                         gameBoard.revealCell(row, col);
                         //Räknar antalet X för vinst
-                        int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize()) - gameBoard.getNumberOfMines();
+                        int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize())
+                                - gameBoard.getNumberOfMines();
                         int markedCells = 0;
                       
                       if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
@@ -54,12 +56,14 @@ public class Game {
                     }
 
                 } else {
-                    System.out.println("Invalid input. Please enter row and column within the valid range.");                 
+                    System.out.println("Invalid input. " +
+                            "Please enter row and column within the valid range.");
 
                 }
 
             } catch (java.util.InputMismatchException e) {
-                System.out.println("Invalid input. Please enter row and column as integers, e.g., 1 2.");
+                System.out.println("Invalid input. " +
+                        "Please enter row and column as integers, e.g., 1 2.");
                 scanner.nextLine();
 
             }
