@@ -3,19 +3,34 @@ import java.util.Scanner;
 public class Game {
     private Board gameBoard;
     private Player player;
+    private int boardSize;
+    private double difficulty;
     private boolean gameOver;
 
     Scanner scanner = new Scanner(System.in);
 
-    public Game(Board board, Player player) {
-        this.gameBoard = board;
+    public Game(int boardSize, Player player) {
+        this.boardSize = boardSize;
         this.player = player;
         this.gameOver = false;
     }
+    public void setDifficulty(double difficulty) {
+        this.difficulty = difficulty;
+    }
+
 
     public void start() {
         gameOver = false;
-        // Wincondition
+        double minePercentage = getMinePercentage();
+        gameBoard = new Board(boardSize, minePercentage);
+        playGame();
+    }
+
+    private double getMinePercentage() {
+        return this.difficulty;
+    }
+
+        public int playGame() {
         while (!gameOver) {
             gameBoard.printBoard();
             System.out.print("Enter row and column (e.g., 1 2): ");
@@ -23,10 +38,11 @@ public class Game {
 
             try {
                 int row = scanner.nextInt();
+
                 int col = scanner.nextInt();
                 //Ifall man träffar mina
-               if (row >= 1 && row <= gameBoard.getBoardSize()
-                       && col >= 1 && col <= gameBoard.getBoardSize()) {
+                if (row >= 1 && row <= gameBoard.getBoardSize()
+                        && col >= 1 && col <= gameBoard.getBoardSize()) {
                     row--;
                     col--;
                     if (gameBoard.getGameBoardElement(row, col) == '*') {
@@ -43,15 +59,15 @@ public class Game {
                         int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize())
                                 - gameBoard.getNumberOfMines();
                         int markedCells = 0;
-                      
-                      if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
 
-                        gameOver = true;
-                        System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
-                         player.incrementWins();
-                        System.out.println("You have won " + player.getWins() + " times!");
-                    }
-                        
+                        if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
+
+                            gameOver = true;
+                            System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                            player.incrementWins();
+                            System.out.println("You have won " + player.getWins() + " times!");
+                        }
+
 
                     }
 
@@ -67,14 +83,20 @@ public class Game {
                 scanner.nextLine();
 
             }
-         
-    }
+
+        }
 
         gameBoard.printBoard();
         System.out.println("Thank you for playing!");
 
+        return 0;
     }
-        public boolean playAgain () {
+
+    private int setDifficulty(int difficulty) {
+        return 0;
+    }
+
+    public boolean playAgain () {
           while (true) {
             System.out.println("Do you want to play again? (Yes/No): ");
             String answer = scanner.next();

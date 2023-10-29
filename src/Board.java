@@ -3,22 +3,27 @@ import java.util.Random;
 public class Board {
     Random rand = new Random();
 
+
     private char[][] gameBoard;
-    private int boardSize ;
+    private int boardSize;
     private int numberOfMines;
     private boolean[][] revealed;
 
 
     String COLOR_RESET = "\u001B[0m";
 
-    public Board(int boardSize) {
+
+
+    public Board(int boardSize, double minePercentage) {
         setBoardSize(boardSize);
 
         this.gameBoard = new char[boardSize][boardSize];
         this.revealed = new boolean[boardSize][boardSize];
         // Beräkna antalet minor 28% av totala antalet rutor; 6x6 10 minor...
 
-        this.numberOfMines = (int) (boardSize * boardSize * 0.28);
+       // this.numberOfMines = (int) (boardSize * boardSize * 0.28);
+        this.numberOfMines = (int) (boardSize * boardSize * minePercentage);
+
         initializeBoard();
         placeMines();
         fillInNumberOfMines();
