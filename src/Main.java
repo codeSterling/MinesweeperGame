@@ -4,10 +4,12 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Game game;
+
         Player player = new Player();
+        Game game = new Game(player);
 
         do {
+
             int boardSize = 4;
             boolean validInput = false;
 
@@ -23,15 +25,40 @@ public class Main {
                     }
                 } else {
                     System.out.println("Ogiltig inmatning. Ange en siffra mellan 4 och 9.");
+
                     scanner.next();
                 }
             }
             while (!validInput) ;
 
-            game = new Game(boardSize, player);
 
+            game.setBoardSize(boardSize);
+            
+
+            System.out.println("Choose difficulty: 1.Easy 2.Medium 3.Hard:");
             int difficultyChoice = 0;
             boolean validDifficulty = false;
+            difficultyChoice = scanner.nextInt();
+
+            switch (difficultyChoice) {
+                case 1:
+                    // Sets difficulty to easy
+                    game.setDifficulty(0.1);  // 10% of the squares have mines
+                    break;
+                case 2:
+                    // Sets difficulty to medium
+                    game.setDifficulty(0.2);  // 20% of the squares have mines
+                    break;
+                case 3:
+                    // Sets difficulty to hard
+                    game.setDifficulty(0.3);  // 30% of the squares have mines
+                    break;
+                default:
+                    System.out.println("Invalid choice. Sets difficulty to easy.");
+                    game.setDifficulty(0.1);  // 10% of the squares have mines
+                    break;
+            }
+
 
             while (!validDifficulty) {
                 try {
