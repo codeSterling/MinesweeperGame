@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -24,38 +25,47 @@ public class Main {
                     System.out.println("Ogiltig inmatning. Ange en siffra mellan 4 och 9.");
                     scanner.next();
                 }
-            } while (!validInput);
+            }
+            while (!validInput) ;
 
             game = new Game(boardSize, player);
 
-            System.out.println("Välj svårighetsgrad (1-3):");
-            int difficultyChoice = scanner.nextInt();
+            int difficultyChoice = 0;
+            boolean validDifficulty = false;
 
-            switch (difficultyChoice) {
-                case 1:
-                    // Sätt svårighetsgrad till enkelt
-                    game.setDifficulty(0.1);  // 10% av rutorna har minor
-                    break;
-                case 2:
-                    // Sätt svårighetsgrad till medel
-                    game.setDifficulty(0.2);  // 20% av rutorna har minor
-                    break;
-                case 3:
-                    // Sätt svårighetsgrad till svårt
-                    game.setDifficulty(0.3);  // 30% av rutorna har minor
-                    break;
-                default:
-                    System.out.println("Ogiltigt val. Sätter svårighetsgrad till enkelt.");
-                    game.setDifficulty(0.1);  // 10% av rutorna har minor
-                    break;
+            while (!validDifficulty) {
+                try {
+                    System.out.println("Välj svårighetsgrad (1-3):");
+                    difficultyChoice = scanner.nextInt();
+
+                switch (difficultyChoice) {
+                    case 1:
+                        // Sätt svårighetsgrad till enkelt
+                        game.setDifficulty(0.1);  // 10% av rutorna har minor
+                        validDifficulty = true;
+                        break;
+                    case 2:
+                        // Sätt svårighetsgrad till medel
+                        game.setDifficulty(0.2);  // 20% av rutorna har minor
+                        validDifficulty = true;
+                        break;
+                    case 3:
+                        // Sätt svårighetsgrad till svårt
+                        game.setDifficulty(0.3);  // 30% av rutorna har minor
+                        validDifficulty = true;
+                        break;
+                    default:
+                        System.out.println("Ogiltigt val. Försök igen.");
+                }
+            } catch(InputMismatchException e) {
+                System.out.println("Ogiltig inmatning. Ange en siffra mellan 1 och 3.");
+                scanner.next();
             }
-
-
+        }
             System.out.println("Welcome " + player.getName() + ", to Minesweeper!\uD83D\uDCA5");
             game.start();
 
         } while (game.playAgain());
-
     }
 }
 
