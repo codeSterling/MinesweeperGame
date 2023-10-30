@@ -9,28 +9,32 @@ public class Game {
 
     Scanner scanner = new Scanner(System.in);
 
-    public Game(int boardSize, Player player) {
-        this.boardSize = boardSize;
+    public Game(Player player) {
         this.player = player;
         this.gameOver = false;
+        gameBoard = new Board();
     }
+
     public void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
-    }
-
-
-    public void start() {
-        gameOver = false;
-        double minePercentage = getMinePercentage();
-        gameBoard = new Board(boardSize, minePercentage);
-        playGame();
     }
 
     private double getMinePercentage() {
         return this.difficulty;
     }
 
-        public int playGame() {
+    public void setBoardSize(int boardSize) {
+        this.boardSize = boardSize;
+    }
+
+    public void start() {
+        gameOver = false;
+        double minePercentage = getMinePercentage();
+        gameBoard.resetGameBoard(boardSize, minePercentage);
+        playGame();
+    }
+
+    public void playGame() {
         while (!gameOver) {
             gameBoard.printBoard();
             System.out.print("Enter row and column (e.g., 1 2): ");
@@ -46,7 +50,7 @@ public class Game {
                         && col >= 1 && col <= gameBoard.getBoardSize()) {
                     row--;
                     col--;
-                    if (gameBoard.getGameBoardElement(row, col) == '*') {
+                    if (gameBoard.getGameBoardElement(row, col) == gameBoard.getBOMB_SYMBOL()) {
                         gameBoard.revealCell(row, col);
                         gameOver = true;
 
@@ -58,7 +62,7 @@ public class Game {
                         //Räknar antalet X för vinst
                         int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize())
                                 - gameBoard.getNumberOfMines();
-                        int markedCells = 0;
+
 
                         if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
 
@@ -89,15 +93,11 @@ public class Game {
         gameBoard.printBoard();
         System.out.println("Thank you for playing!");
 
-        return 0;
     }
 
-    private int setDifficulty(int difficulty) {
-        return 0;
-    }
 
-    public boolean playAgain () {
-          while (true) {
+    public boolean playAgain() {
+        while (true) {
             System.out.println("Do you want to play again? (Yes/No): ");
             String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("Yes")) {
@@ -107,9 +107,9 @@ public class Game {
             } else {
                 System.out.println("Invalid input. Please enter 'Yes' or 'No'. ");
             }
-          }
         }
-    
+    }
+
 
 }
 

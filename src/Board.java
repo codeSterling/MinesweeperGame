@@ -9,22 +9,21 @@ public class Board {
     private int numberOfMines;
     private boolean[][] revealed;
 
+    private static final char BOMB_SYMBOL = '*';
+
 
     String COLOR_RESET = "\u001B[0m";
 
 
+    public Board() {
+    }
 
-    public Board(int boardSize, double minePercentage) {
-        setBoardSize(boardSize);
-
+    public void resetGameBoard(int boardSize, double difficulty) {
+        this.boardSize = boardSize;
         this.gameBoard = new char[boardSize][boardSize];
         this.revealed = new boolean[boardSize][boardSize];
-        // Beräkna antalet minor 28% av totala antalet rutor; 6x6 10 minor...
-
-       // this.numberOfMines = (int) (boardSize * boardSize * 0.28);
-        this.numberOfMines = (int) (boardSize * boardSize * minePercentage);
-
-        initializeBoard();
+        this.numberOfMines = (int) (boardSize * boardSize * difficulty);
+        //initializeBoard();
         placeMines();
         fillInNumberOfMines();
     }
@@ -33,51 +32,35 @@ public class Board {
         return boardSize;
     }
 
-    public void setBoardSize(int boardSize) {
-        this.boardSize = boardSize;
-    }
 
     public int getNumberOfMines() {
         return numberOfMines;
-    }
-
-    public void setNumberOfMines(int numberOfMines) {
-        this.numberOfMines = numberOfMines;
     }
 
     public char getGameBoardElement(int rowIndex, int colIndex) {
         return this.gameBoard[rowIndex][colIndex];
     }
 
-    public void setGameBoardElement(int rowIndex, int colIndex, char newValue) {
-        this.gameBoard[rowIndex][colIndex] = newValue;
+    public char getBOMB_SYMBOL() {
+        return BOMB_SYMBOL;
     }
-
-    public boolean getRevealedValue(int rowIndex, int colIndex) {
-        return this.revealed[rowIndex][colIndex];
-    }
-
-    public void setRevealedValue(int rowIndex, int colIndex, boolean newValue) {
-        this.revealed[rowIndex][colIndex] = newValue;
-    }
-
-    //Restore the board
-    public void initializeBoard() {
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                gameBoard[i][j] = ' ';
-                revealed[i][j] = false;
-            }
-        }
-    }
+//Restore the board
+//    public void initializeBoard() {
+//        for (int i = 0; i < boardSize; i++) {
+//            for (int j = 0; j < boardSize; j++) {
+//                gameBoard[i][j] = ' ';
+//                revealed[i][j] = false;
+//            }
+//        }
+//    }
 
     public void placeMines() {
         for (int i = 0; i < numberOfMines; i++) {
             while (true) {
                 int x = rand.nextInt(boardSize);
                 int y = rand.nextInt(boardSize);
-                if (gameBoard[x][y] != '*') {
-                    gameBoard[x][y] = '*';
+                if (gameBoard[x][y] != BOMB_SYMBOL) {
+                    gameBoard[x][y] = BOMB_SYMBOL;
                     break;
                 }
             }
@@ -112,10 +95,10 @@ public class Board {
     }
 
     public void fillInNumberOfMines() {
-        for(int i = 0; i < boardSize; i++) {
-            for(int j = 0; j < boardSize; j++) {
-                if(gameBoard[i][j] != '*') {
-                    gameBoard[i][j] = (char) (countMines(i, j)+'0');
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (gameBoard[i][j] != BOMB_SYMBOL) {
+                    gameBoard[i][j] = (char) (countMines(i, j) + '0');
                 }
             }
         }
@@ -123,18 +106,18 @@ public class Board {
 
     public int countMines(int x, int y) {
         int numberOfMines = 0;
-        for(int i = -1; i <=1 ; i++) {
-            if(x - i >= 0 && x - i < boardSize) {
-                if(y - 1 >= 0) {
-                    if (gameBoard[x - i][y - 1] == '*') {
+        for (int i = -1; i <= 1; i++) {
+            if (x - i >= 0 && x - i < boardSize) {
+                if (y - 1 >= 0) {
+                    if (gameBoard[x - i][y - 1] == BOMB_SYMBOL) {
                         numberOfMines++;
                     }
                 }
-                if (gameBoard[x - i][y] == '*') {
+                if (gameBoard[x - i][y] == BOMB_SYMBOL) {
                     numberOfMines++;
                 }
-                if(y + 1 < boardSize) {
-                    if (gameBoard[x - i][y + 1] == '*') {
+                if (y + 1 < boardSize) {
+                    if (gameBoard[x - i][y + 1] == BOMB_SYMBOL) {
                         numberOfMines++;
                     }
                 }
@@ -145,9 +128,9 @@ public class Board {
 
     //Shows the bomb when hitting it
     public void showBoardWhenLooses() {
-        for(int i = 0; i < boardSize; i++) {
-            for(int j = 0; j < boardSize; j++) {
-                if(gameBoard[i][j] == '*') {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (gameBoard[i][j] == BOMB_SYMBOL) {
                     revealed[i][j] = true;
                 }
             }
@@ -164,7 +147,7 @@ public class Board {
                             showBlanksNextToSquare(r - i, c - 1);
                         }
                     }
-                    if ( !revealed[r - i][c]) {
+                    if (!revealed[r - i][c]) {
                         revealed[r - i][c] = true;
                         if (gameBoard[r - i][c] == '0') {
                             showBlanksNextToSquare(r - i, c);
@@ -214,10 +197,10 @@ public class Board {
             case '6' -> {
                 return "\u001B[36m";
             }
-            case '*' -> {
+            case BOMB_SYMBOL -> {
                 return "\u001B[31m";
             }
-            default ->  {
+            default -> {
                 return "\u001B[37m";
             }
         }
