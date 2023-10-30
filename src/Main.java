@@ -3,8 +3,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Game game;
+
         Player player = new Player();
+        Game game = new Game(player);
 
         do {
             do {
@@ -16,7 +17,8 @@ public class Main {
             } while (!scanner.hasNextInt());
 
             int boardSize = scanner.nextInt();
-            game = new Game(boardSize, player);
+            game.setBoardSize(boardSize);
+            //game = new Game(boardSize, player);
 
             System.out.println("Choose difficulty: 1.Easy 2.Medium 3.Hard:");
             int difficultyChoice = scanner.nextInt();

@@ -9,31 +9,41 @@ public class Game {
 
     Scanner scanner = new Scanner(System.in);
 
+
     //Constructor
-    public Game(int boardSize, Player player) {
-        this.boardSize = boardSize;
+
+    public Game(Player player) {
         this.player = player;
         this.gameOver = false;
+        gameBoard = new Board();
     }
+
     //a setter method. Sets the difficulty level of the game
+
     public void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
     }
+
+
+    private double getMinePercentage() {
+        return this.difficulty;
+    }
+
+    public void setBoardSize(int boardSize) {
+        this.boardSize = boardSize;
+    }
+
 
     public void start() {
         gameOver = false;
         //Calculates percentage of mines in relation to the size of the game.
         double minePercentage = getMinePercentage();
-        gameBoard = new Board(boardSize, minePercentage);
+        gameBoard.resetGameBoard(boardSize, minePercentage);
         playGame();
     }
-    private double getMinePercentage() {
-        return this.difficulty;
-    }
 
 
-        public int playGame() {
-            boolean playerHasWon = false;
+    public void playGame() {
 
         while (!gameOver) {
             gameBoard.printBoard();
@@ -44,31 +54,38 @@ public class Game {
                 int row = scanner.nextInt();
 
                 int col = scanner.nextInt();
+                scanner.nextLine();
                 //Ifall man träffar mina
                 if (row >= 1 && row <= gameBoard.getBoardSize()
                         && col >= 1 && col <= gameBoard.getBoardSize()) {
                     row--;
                     col--;
-                    if (gameBoard.getGameBoardElement(row, col) == '*') {
+                    if (gameBoard.getGameBoardElement(row, col) == gameBoard.getBOMB_SYMBOL()) {
                         gameBoard.revealCell(row, col);
                         gameOver = true;
-
-                        System.out.println("Game over! You hit a mine.");
                         gameBoard.showBoardWhenLooses();
                         gameBoard.printBoard();
+                        System.out.println("Game over! You hit a mine.");
+                        
                     } else {
                         // Visar med revealCell-metoden position med X
                         gameBoard.revealCell(row, col);
                         //Räknar antalet X för vinst
                         int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize())
                                 - gameBoard.getNumberOfMines();
-                        int markedCells = 0;
+
 
                         if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
 
                             gameOver = true;
-                            playerHasWon = true;
+                          
                             player.incrementWins();
+                          gameBoard.printBoard();
+            
+                System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                System.out.println("You have won " + player.getWins() + " times!");
+                System.out.println();
+            
 
                         }
 
@@ -90,27 +107,18 @@ public class Game {
 
         }
 
-        gameBoard.printBoard();
-            if (playerHasWon) {
-                System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
-                System.out.println("You have won " + player.getWins() + " times!");
-                System.out.println();
-            }
+        
 
 
         System.out.println("Thank you for playing!");
 
-        return 0;
     }
 
-    private int setDifficulty(int difficulty) {
-        return 0;
-    }
 
-    public boolean playAgain () {
-          while (true) {
+    public boolean playAgain() {
+        while (true) {
             System.out.println("Do you want to play again? (Yes/No): ");
-            String answer = scanner.next();
+            String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("Yes")) {
                 return true;
             } else if (answer.equalsIgnoreCase("No")) {
@@ -118,9 +126,9 @@ public class Game {
             } else {
                 System.out.println("Invalid input. Please enter 'Yes' or 'No'. ");
             }
-          }
         }
-    
+    }
+
 
 }
 
