@@ -14,14 +14,14 @@ public class Board {
 
 
 
-    //konstruktor för en klassen Board
+    //Constructor for a class Board
     public Board(int boardSize, double minePercentage) {
         setBoardSize(boardSize);
 
         this.gameBoard = new char[boardSize][boardSize];
         this.revealed = new boolean[boardSize][boardSize];
-        //antalet minor som kommer att placeras på brädet.
-        // multiplicerar brädets totala storlek med minePercentage
+        //the number of mines that will be placed on the board.
+        // multiplies the total size of the board by minePercentage
         this.numberOfMines = (int) (boardSize * boardSize * minePercentage);
 
         initializeBoard();
