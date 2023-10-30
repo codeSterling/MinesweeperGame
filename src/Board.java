@@ -7,17 +7,13 @@ public class Board {
     private Cell[][] gameBoard;
     private int boardSize;
     private int numberOfMines;
-   // private boolean[][] revealed;
+   
 
     private static final char BOMB_SYMBOL = '*';
 
-
     String COLOR_RESET = "\u001B[0m";
 
-
-
     //Constructor for a class Board
-    
     public Board() {
     }
 
@@ -28,9 +24,7 @@ public class Board {
 //        this.revealed = new boolean[boardSize][boardSize];
         this.numberOfMines = (int) (boardSize * boardSize * difficulty); //the number of mines that will be placed on the board.
                                                                         // multiplies the total size of the board by minePercentage
-
         initializeBoard();
-
         placeMines();
         fillInNumberOfMines();
     }
@@ -48,16 +42,6 @@ public class Board {
         return this.gameBoard[row][col];
     }
 
-    public void setGameBoard(Cell[][] gameBoard) {
-        this.gameBoard = gameBoard;
-    }
-    //    public char getGameBoardElement(int rowIndex, int colIndex) {
-//        return this.gameBoard[rowIndex][colIndex];
-//    }
-
-    public char getBOMB_SYMBOL() {
-        return BOMB_SYMBOL;
-    }
 //Restore the board
     public void initializeBoard() {
         for (int i = 0; i < boardSize; i++) {
@@ -113,7 +97,7 @@ public class Board {
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 if (!gameBoard[i][j].isHasBomb()) {
-                    gameBoard[i][j].setNumbersOfMinesNextTo(countMines(i, j));// = (char) (countMines(i, j) + '0');
+                    gameBoard[i][j].setNumbersOfMinesNextTo(countMines(i, j));
                 }
             }
         }

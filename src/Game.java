@@ -60,32 +60,26 @@ public class Game {
                         && col >= 1 && col <= gameBoard.getBoardSize()) {
                     row--;
                     col--;
-                    if (gameBoard.getGameBoard(row, col).isHasBomb()) { // getGameBoardElement(row, col) == gameBoard.getBOMB_SYMBOL()) {
+                    if (gameBoard.getGameBoard(row, col).isHasBomb()) {
                         gameBoard.revealCell(row, col);
                         gameOver = true;
                         gameBoard.showBoardWhenLooses();
                         gameBoard.printBoard();
                         System.out.println("Game over! You hit a mine.");
-                        
+
                     } else {
                         // Visar med revealCell-metoden position med X
                         gameBoard.revealCell(row, col);
                         //Räknar antalet X för vinst
                         int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize())
                                 - gameBoard.getNumberOfMines();
-
-
                         if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
-
                             gameOver = true;
-                          
                             player.incrementWins();
-                          gameBoard.printBoard();
-            
-                System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
-                System.out.println("You have won " + player.getWins() + " times!");
-                System.out.println();
-            
+                            gameBoard.printBoard();
+                            System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                            System.out.println("You have won " + player.getWins() + " times!");
+                            System.out.println();
 
                         }
 
@@ -104,12 +98,7 @@ public class Game {
                 scanner.nextLine();
 
             }
-
         }
-
-        
-
-
         System.out.println("Thank you for playing!");
 
     }

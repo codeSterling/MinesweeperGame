@@ -29,7 +29,7 @@ public class Main {
                     scanner.next();
                 }
             }
-            while (!validInput) ;
+
 
 
             game.setBoardSize(boardSize);
