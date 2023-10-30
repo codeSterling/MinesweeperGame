@@ -9,28 +9,32 @@ public class Game {
 
     Scanner scanner = new Scanner(System.in);
 
+    //Constructor
     public Game(int boardSize, Player player) {
         this.boardSize = boardSize;
         this.player = player;
         this.gameOver = false;
     }
+    //a setter method. Sets the difficulty level of the game
     public void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
     }
 
-
     public void start() {
         gameOver = false;
+        //Calculates percentage of mines in relation to the size of the game.
         double minePercentage = getMinePercentage();
         gameBoard = new Board(boardSize, minePercentage);
         playGame();
     }
-
     private double getMinePercentage() {
         return this.difficulty;
     }
 
+
         public int playGame() {
+            boolean playerHasWon = false;
+
         while (!gameOver) {
             gameBoard.printBoard();
             System.out.print("Enter row and column (e.g., 1 2): ");
@@ -63,9 +67,9 @@ public class Game {
                         if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
 
                             gameOver = true;
-                            System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                            playerHasWon = true;
                             player.incrementWins();
-                            System.out.println("You have won " + player.getWins() + " times!");
+
                         }
 
 
@@ -87,6 +91,13 @@ public class Game {
         }
 
         gameBoard.printBoard();
+            if (playerHasWon) {
+                System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                System.out.println("You have won " + player.getWins() + " times!");
+                System.out.println();
+            }
+
+
         System.out.println("Thank you for playing!");
 
         return 0;

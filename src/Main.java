@@ -8,9 +8,9 @@ public class Main {
 
         do {
             do {
-                System.out.println("Välj storlek på spelplanen:");
+                System.out.println("Choose size on Gameboard: 3-9:");
                 if (!scanner.hasNextInt()) {
-                    System.out.println("Det var inte ett heltal!🤪 Försök igen:");
+                    System.out.println("Number requested \uD83E\uDD13Try again:");
                     scanner.next();
                 }
             } while (!scanner.hasNextInt());
@@ -18,25 +18,25 @@ public class Main {
             int boardSize = scanner.nextInt();
             game = new Game(boardSize, player);
 
-            System.out.println("Välj svårighetsgrad (1-3):");
+            System.out.println("Choose difficulty: 1.Easy 2.Medium 3.Hard:");
             int difficultyChoice = scanner.nextInt();
 
             switch (difficultyChoice) {
                 case 1:
-                    // Sätt svårighetsgrad till enkelt
-                    game.setDifficulty(0.1);  // 10% av rutorna har minor
+                    // Sets difficulty to easy
+                    game.setDifficulty(0.1);  // 10% of the squares have mines
                     break;
                 case 2:
-                    // Sätt svårighetsgrad till medel
-                    game.setDifficulty(0.2);  // 20% av rutorna har minor
+                    // Sets difficulty to medium
+                    game.setDifficulty(0.2);  // 20% of the squares have mines
                     break;
                 case 3:
-                    // Sätt svårighetsgrad till svårt
-                    game.setDifficulty(0.3);  // 30% av rutorna har minor
+                    // Sets difficulty to hard
+                    game.setDifficulty(0.3);  // 30% of the squares have mines
                     break;
                 default:
-                    System.out.println("Ogiltigt val. Sätter svårighetsgrad till enkelt.");
-                    game.setDifficulty(0.1);  // 10% av rutorna har minor
+                    System.out.println("Invalid choice. Sets difficulty to easy.");
+                    game.setDifficulty(0.1);  // 10% of the squares have mines
                     break;
             }
 
