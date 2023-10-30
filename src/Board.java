@@ -28,17 +28,7 @@ public class Board {
 //        this.revealed = new boolean[boardSize][boardSize];
         this.numberOfMines = (int) (boardSize * boardSize * difficulty); //the number of mines that will be placed on the board.
                                                                         // multiplies the total size of the board by minePercentage
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                //System.out.println(gameBoard[i][j]);
-//                this.gameBoard[i][j].setHasBomb(false);
-//                this.gameBoard[i][j].setRevealed(false);
-//                this.gameBoard[i][j].setNumbersOfMinesNextTo(0);
-//                this.gameBoard[i][j].setSymbol(' ');
-//                this.gameBoard[i][j].setFlagged(false);
 
-            }
-        }
         initializeBoard();
 
         placeMines();
@@ -72,11 +62,7 @@ public class Board {
     public void initializeBoard() {
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
-                gameBoard[i][j].setHasBomb(false);
-                gameBoard[i][j].setRevealed(false);
-                gameBoard[i][j].setNumbersOfMinesNextTo(0);
-                gameBoard[i][j].setSymbol(' ');
-                gameBoard[i][j].setFlagged(false);
+                gameBoard[i][j] = new Cell();
 
             }
         }
@@ -87,7 +73,7 @@ public class Board {
             while (true) {
                 int x = rand.nextInt(boardSize);
                 int y = rand.nextInt(boardSize);
-                if (!gameBoard[x][y].isHasBomb() || gameBoard[x][y].isHasBomb()) {
+                if (!gameBoard[x][y].isHasBomb()) {
                     gameBoard[x][y].setSymbol(BOMB_SYMBOL);
                     gameBoard[x][y].setHasBomb(true);
                     break;

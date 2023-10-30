@@ -1,6 +1,5 @@
 public class Cell {
-    private int r;
-    private int c;
+
     private boolean revealed;
     private boolean flagged;
     private boolean hasBomb;
@@ -8,28 +7,11 @@ public class Cell {
     private char symbol;
 
     public Cell() {
-
         this.revealed = false;
         this.flagged = false;
         this.hasBomb = false;
         this.numbersOfMinesNextTo = 0;
         this.symbol = ' ';
-    }
-
-    public int getR() {
-        return r;
-    }
-
-    public void setR(int r) {
-        this.r = r;
-    }
-
-    public int getC() {
-        return c;
-    }
-
-    public void setC(int c) {
-        this.c = c;
     }
 
     public boolean isRevealed() {
