@@ -60,7 +60,7 @@ public class Game {
                         && col >= 1 && col <= gameBoard.getBoardSize()) {
                     row--;
                     col--;
-                    if (gameBoard.getGameBoardElement(row, col) == gameBoard.getBOMB_SYMBOL()) {
+                    if (gameBoard.getGameBoard(row, col).isHasBomb()) { // getGameBoardElement(row, col) == gameBoard.getBOMB_SYMBOL()) {
                         gameBoard.revealCell(row, col);
                         gameOver = true;
                         gameBoard.showBoardWhenLooses();
