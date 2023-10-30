@@ -7,15 +7,25 @@ public class Main {
         Player player = new Player();
 
         do {
-            do {
-                System.out.println("Välj storlek på spelplanen:");
-                if (!scanner.hasNextInt()) {
-                    System.out.println("Det var inte ett heltal!🤪 Försök igen:");
+            int boardSize = 4;
+            boolean validInput = false;
+
+            // Loopa tills användaren anger en giltig storlek på spelplanen
+            while (!validInput) {
+                System.out.print("Välj storlek på spelplanen (4-9): ");
+                if (scanner.hasNextInt()) {
+                    boardSize = scanner.nextInt();
+                    if (boardSize >= 4 && boardSize <= 9) {
+                        validInput = true;
+                    } else {
+                        System.out.println("Ogiltig storlek. Ange en storlek mellan 4 och 9.");
+                    }
+                } else {
+                    System.out.println("Ogiltig inmatning. Ange en siffra mellan 4 och 9.");
                     scanner.next();
                 }
-            } while (!scanner.hasNextInt());
+            } while (!validInput);
 
-            int boardSize = scanner.nextInt();
             game = new Game(boardSize, player);
 
             System.out.println("Välj svårighetsgrad (1-3):");
