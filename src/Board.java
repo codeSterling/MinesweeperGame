@@ -15,15 +15,22 @@ public class Board {
     String COLOR_RESET = "\u001B[0m";
 
 
+
+    //Constructor for a class Board
+    
     public Board() {
     }
+
 
     public void resetGameBoard(int boardSize, double difficulty) {
         this.boardSize = boardSize;
         this.gameBoard = new char[boardSize][boardSize];
         this.revealed = new boolean[boardSize][boardSize];
-        this.numberOfMines = (int) (boardSize * boardSize * difficulty);
+
+        this.numberOfMines = (int) (boardSize * boardSize * difficulty); //the number of mines that will be placed on the board.
+                                                                         // multiplies the total size of the board by minePercentage
         //initializeBoard();
+
         placeMines();
         fillInNumberOfMines();
     }

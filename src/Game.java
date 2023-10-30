@@ -9,15 +9,21 @@ public class Game {
 
     Scanner scanner = new Scanner(System.in);
 
+
+    //Constructor
+
     public Game(Player player) {
         this.player = player;
         this.gameOver = false;
         gameBoard = new Board();
     }
 
+    //a setter method. Sets the difficulty level of the game
+
     public void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
     }
+
 
     private double getMinePercentage() {
         return this.difficulty;
@@ -27,14 +33,18 @@ public class Game {
         this.boardSize = boardSize;
     }
 
+
     public void start() {
         gameOver = false;
+        //Calculates percentage of mines in relation to the size of the game.
         double minePercentage = getMinePercentage();
         gameBoard.resetGameBoard(boardSize, minePercentage);
         playGame();
     }
 
+
     public void playGame() {
+
         while (!gameOver) {
             gameBoard.printBoard();
             System.out.print("Enter row and column (e.g., 1 2): ");
@@ -53,9 +63,10 @@ public class Game {
                     if (gameBoard.getGameBoardElement(row, col) == gameBoard.getBOMB_SYMBOL()) {
                         gameBoard.revealCell(row, col);
                         gameOver = true;
-
-                        System.out.println("Game over! You hit a mine.");
                         gameBoard.showBoardWhenLooses();
+                        gameBoard.printBoard();
+                        System.out.println("Game over! You hit a mine.");
+                        
                     } else {
                         // Visar med revealCell-metoden position med X
                         gameBoard.revealCell(row, col);
@@ -67,9 +78,15 @@ public class Game {
                         if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
 
                             gameOver = true;
-                            System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                          
                             player.incrementWins();
-                            System.out.println("You have won " + player.getWins() + " times!");
+                          gameBoard.printBoard();
+            
+                System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
+                System.out.println("You have won " + player.getWins() + " times!");
+                System.out.println();
+            
+
                         }
 
 
@@ -90,7 +107,9 @@ public class Game {
 
         }
 
-        gameBoard.printBoard();
+        
+
+
         System.out.println("Thank you for playing!");
 
     }
