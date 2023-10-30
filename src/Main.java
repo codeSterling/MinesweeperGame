@@ -8,7 +8,7 @@ public class Main {
 
         do {
             do {
-                System.out.println("Välj storlek på spelplanen:");
+                System.out.println("Välj storlek på spelplanen (4-25):");
                 if (!scanner.hasNextInt()) {
                     System.out.println("Det var inte ett heltal!🤪 Försök igen:");
                     scanner.next();
