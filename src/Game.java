@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
     private Board gameBoard;
@@ -6,6 +6,9 @@ public class Game {
     private int boardSize;
     private double difficulty;
     private boolean gameOver;
+    private long startTime;
+    private long stopTime;
+    private ArrayList<HighScoreEntry> highScore = new ArrayList<>();
 
     Scanner scanner = new Scanner(System.in);
 
@@ -39,7 +42,10 @@ public class Game {
         //Calculates percentage of mines in relation to the size of the game.
         double minePercentage = getMinePercentage();
         gameBoard.resetGameBoard(boardSize, minePercentage);
+        this.startTime = System.currentTimeMillis();
+        System.out.println(startTime);
         playGame();
+
     }
 
 
@@ -82,8 +88,13 @@ public class Game {
                               gameOver = true;
                               player.incrementWins();
                               gameBoard.printBoard();
+                              this.stopTime = System.currentTimeMillis();
+                              long time = gameElapsedTime();
                               System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
                               System.out.println("You have won " + player.getWins() + " times!");
+                              System.out.println("Your time was " + time + " seconds");
+                              addToHighScoreAndSort(time, difficulty);
+                              printHighScore(highScore);
                               System.out.println();
                           }
                        }
@@ -111,6 +122,27 @@ public class Game {
                 System.out.println("Invalid input. Please enter 'Yes' or 'No'. ");
             }
         }
+    }
+
+    public long gameElapsedTime() {
+        return (stopTime - startTime) / 1000 ; //Returns time in seconds
+    }
+
+    public void addToHighScoreAndSort(long time, double difficulty) {
+        highScore.add(new HighScoreEntry(player.getName(), difficulty, time));
+        Collections.sort(highScore, Comparator.comparingLong(HighScoreEntry::getTime));  //Sorts highscore by time
+    }
+
+
+
+    public void printHighScore(ArrayList<HighScoreEntry> highScore) {
+        System.out.println();
+        System.out.println("Top three times :");
+        for(int i = 0; i < Math.min(3, highScore.size()); i++) { //Only shows the first three of sorted highscore list
+            System.out.println("Name: " + highScore.get(i).getName() + ". Time: " + highScore.get(i).getTime() + ". Difficulty: " + highScore.get(i).getDifficulty() + ".");
+        }
+
+        System.out.println();
     }
 }
 
