@@ -18,7 +18,7 @@ public class Game {
         gameBoard = new Board();
     }
 
-    //a setter method. Sets the difficulty level of the game
+    //A setter method, sets the difficulty level of the game
 
     public void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
@@ -58,8 +58,9 @@ public class Game {
                     System.out.println("Invalid input. That's a number. Please enter a letter as row!");
                 } else if (rowInput.length() > 1) {
                     System.out.println("Invalid input. You have written more than a letter. Try again!");
+
                 } else {
-                  //Ifall man träffar mina
+                  //If you hit a mine
                   if (row >= 1 && row <= gameBoard.getBoardSize()
                           && col >= 1 && col <= gameBoard.getBoardSize()) {
                       row--;
@@ -72,9 +73,9 @@ public class Game {
                           System.out.println("Game over! You hit a mine.");
 
                       } else {
-                          // Visar med revealCell-metoden position med X
+                          //  Shows revealCell method position with X
                           gameBoard.revealCell(row, col);
-                          //Räknar antalet X för vinst
+                          //Counts the number of X for winning
                           int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize())
                                   - gameBoard.getNumberOfMines();
                           if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
