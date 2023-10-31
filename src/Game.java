@@ -7,6 +7,10 @@ public class Game {
     private double difficulty;
     private boolean gameOver;
 
+    private long startTime;
+    private long stopTime;
+    //Timestamp time = new Timestamp(System.currentTimeMillis());
+
     Scanner scanner = new Scanner(System.in);
 
 
@@ -39,7 +43,10 @@ public class Game {
         //Calculates percentage of mines in relation to the size of the game.
         double minePercentage = getMinePercentage();
         gameBoard.resetGameBoard(boardSize, minePercentage);
+        this.startTime = System.currentTimeMillis();
+        System.out.println(startTime);
         playGame();
+
     }
 
 
@@ -81,8 +88,11 @@ public class Game {
                               gameOver = true;
                               player.incrementWins();
                               gameBoard.printBoard();
+                              this.stopTime = System.currentTimeMillis();
+
                               System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
                               System.out.println("You have won " + player.getWins() + " times!");
+                              System.out.println("Your time was " + gameElapsedTime() + " seconds");
                               System.out.println();
                           }
                        }
@@ -110,6 +120,10 @@ public class Game {
                 System.out.println("Invalid input. Please enter 'Yes' or 'No'. ");
             }
         }
+    }
+
+    public long gameElapsedTime() {
+        return (stopTime - startTime) / 1000 ; //Returns time in seconds
     }
 }
 
