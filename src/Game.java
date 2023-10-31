@@ -43,16 +43,18 @@ public class Game {
         double minePercentage = getMinePercentage();
         gameBoard.resetGameBoard(boardSize, minePercentage);
         this.startTime = System.currentTimeMillis();
-        System.out.println(startTime);
-        playGame();
 
+        playGame();
     }
 
-
     public void playGame() {
+        int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize()) - gameBoard.getNumberOfMines();
 
         while (!gameOver) {
+
             gameBoard.printBoard();
+            System.out.println("Number of mines on the board: " + gameBoard.getNumberOfMines());
+            System.out.println();
             System.out.print("Please enter row and column (e.g., a 2): ");
 
             try {
@@ -66,12 +68,11 @@ public class Game {
                     System.out.println("Invalid input. You have written more than a letter. Try again!");
 
                 } else {
-                  //If you hit a mine
                   if (row >= 1 && row <= gameBoard.getBoardSize()
                           && col >= 1 && col <= gameBoard.getBoardSize()) {
                       row--;
                       col--;
-                      if (gameBoard.getGameBoard(row, col).isHasBomb()) {
+                      if (gameBoard.getGameBoard(row, col).isHasBomb()) { //If you hit a mine
                           gameBoard.revealCell(row, col);
                           gameOver = true;
                           gameBoard.showBoardWhenLooses();
@@ -82,23 +83,26 @@ public class Game {
                           //  Shows revealCell method position with X
                           gameBoard.revealCell(row, col);
                           //Counts the number of X for winning
-                          int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize())
-                                  - gameBoard.getNumberOfMines();
+                          //int nonMineCells = (gameBoard.getBoardSize() * gameBoard.getBoardSize()) - gameBoard.getNumberOfMines();
                           if (gameBoard.numberOfSquaresRevealed() == nonMineCells) {
                               gameOver = true;
                               player.incrementWins();
-                              gameBoard.printBoard();
                               this.stopTime = System.currentTimeMillis();
                               long time = gameElapsedTime();
+                              addToHighScoreAndSort(time, difficulty);
+
+                              gameBoard.printBoard();
                               System.out.println("Congratulations! You win!\uD83C\uDF89\uD83C\uDF89");
                               System.out.println("You have won " + player.getWins() + " times!");
                               System.out.println("Your time was " + time + " seconds");
-                              addToHighScoreAndSort(time, difficulty);
+
                               printHighScore(highScore);
                               System.out.println();
                           }
                        }
-                    }
+                    } else {
+                      System.out.println("Index out of bounds, please try again.");
+                  }
                 }
             } catch (java.util.InputMismatchException e){
                     System.out.println("Invalid input. " +
@@ -132,17 +136,13 @@ public class Game {
         highScore.add(new HighScoreEntry(player.getName(), difficulty, time));
         Collections.sort(highScore, Comparator.comparingLong(HighScoreEntry::getTime));  //Sorts highscore by time
     }
-
-
-
     public void printHighScore(ArrayList<HighScoreEntry> highScore) {
         System.out.println();
         System.out.println("Top three times :");
         for(int i = 0; i < Math.min(3, highScore.size()); i++) { //Only shows the first three of sorted highscore list
-            System.out.println("Name: " + highScore.get(i).getName() + ". Time: " + highScore.get(i).getTime() + ". Difficulty: " + highScore.get(i).getDifficulty() + ".");
+            System.out.println("Name: " + highScore.get(i).getName() + ". Time: " + highScore.get(i).getTime() + " seconds. Difficulty: " + highScore.get(i).getDifficulty() + ".");
         }
-
-        System.out.println();
     }
+     
 }
 
