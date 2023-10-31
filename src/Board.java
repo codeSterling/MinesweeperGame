@@ -18,8 +18,9 @@ public class Board {
     public void resetGameBoard(int boardSize, double difficulty) {
         this.boardSize = boardSize;
         this.gameBoard = new Square[boardSize][boardSize];
-        this.numberOfMines = (int) (boardSize * boardSize * difficulty); //the number of mines that will be placed on the board.
-                                                                        // multiplies the total size of the board by minePercentage
+        this.numberOfMines = (int) (boardSize * boardSize * difficulty);
+        //the number of mines that will be placed on the board.
+        // multiplies the total size of the board by minePercentage
         initializeBoard();
         placeMines();
         fillInNumberOfMines();
@@ -53,7 +54,8 @@ public class Board {
             while (true) {
                 int x = rand.nextInt(boardSize);
                 int y = rand.nextInt(boardSize);
-                if (!gameBoard[x][y].isHasBomb()) {  //Only adds mine if square doesnt have a bomb already.
+                if (!gameBoard[x][y].isHasBomb()) {
+                    //Only adds mine if square doesnt have a bomb already.
                   //  gameBoard[x][y].setSymbol(BOMB_SYMBOL);
                     gameBoard[x][y].setHasBomb(true);
                     break;

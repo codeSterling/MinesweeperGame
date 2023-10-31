@@ -13,7 +13,7 @@ public class Main {
             int boardSize = 4;
             boolean validInput = false;
 
-            // Loopa tills användaren anger en giltig storlek på spelplanen
+            // Loop until the user enters a valid size of the playing field
             while (!validInput) {
                 System.out.print("Set boardsize (4-9): ");
                 if (scanner.hasNextInt()) {
@@ -39,18 +39,18 @@ public class Main {
 
                 switch (difficultyChoice) {
                     case 1:
-                        // Sätt svårighetsgrad till enkelt
-                        game.setDifficulty(0.1);  // 10% av rutorna har minor
+                        // Set difficulty to easy
+                        game.setDifficulty(0.1);  // 10% of the squares have mines
                         validDifficulty = true;
                         break;
                     case 2:
-                        // Sätt svårighetsgrad till medel
-                        game.setDifficulty(0.2);  // 20% av rutorna har minor
+                        // Set difficulty to medium
+                        game.setDifficulty(0.2);  // 20% of the squares have mines
                         validDifficulty = true;
                         break;
                     case 3:
-                        // Sätt svårighetsgrad till svårt
-                        game.setDifficulty(0.3);  // 30% av rutorna har minor
+                        // Set difficulty to hard
+                        game.setDifficulty(0.3);  // 30% of the squares have mines
                         validDifficulty = true;
                         break;
                     default:
