@@ -14,16 +14,16 @@ public class Main {
 
             // Loop until the user enters a valid size of the playing field
             while (!validInput) {
-                System.out.print("Set boardsize (4-9): ");
+                System.out.print("Set board size (4-9): ");
                 if (scanner.hasNextInt()) {
                     boardSize = scanner.nextInt();
                     if (boardSize >= 4 && boardSize <= 9) {
                         validInput = true;
                     } else {
-                        System.out.println("Invalid size. Set boardsize between 4 and 9.");
+                        System.out.println("Invalid size. Set board size between 4 and 9.");
                     }
                 } else {
-                    System.out.println("Invalid size. Set boardsize between 4 and 9.");
+                    System.out.println("Invalid size. Set board size between 4 and 9.");
                     scanner.next();
                 }
             }

@@ -2,8 +2,6 @@ import java.util.Random;
 
 public class Board {
     Random rand = new Random();
-
-
     private Square[][] gameBoard;
     private int boardSize;
     private int numberOfMines;
@@ -44,7 +42,6 @@ public class Board {
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 gameBoard[i][j] = new Square();
-
             }
         }
     }
@@ -54,9 +51,7 @@ public class Board {
             while (true) {
                 int x = rand.nextInt(boardSize);
                 int y = rand.nextInt(boardSize);
-                if (!gameBoard[x][y].isHasBomb()) {
-                    //Only adds mine if square doesnt have a bomb already.
-                  //  gameBoard[x][y].setSymbol(BOMB_SYMBOL);
+                if (!gameBoard[x][y].isHasBomb()) { //Only adds mine if square doesnt have a bomb already.
                     gameBoard[x][y].setHasBomb(true);
                     break;
                 }
@@ -77,7 +72,6 @@ public class Board {
         if(gameBoard[r][c].isRevealed()) {  //Only shows if the square is revealed.
             if (gameBoard[r][c].isFlagged()) {
                 selectedChar = FLAG_SYMBOL;
-
             } else if(gameBoard[r][c].isHasBomb()) {
                 selectedChar = BOMB_SYMBOL;
             } else {
