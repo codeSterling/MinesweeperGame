@@ -9,7 +9,6 @@ public class Main {
         Game game = new Game(player);
 
         do {
-
             int boardSize = 4;
             boolean validInput = false;
 

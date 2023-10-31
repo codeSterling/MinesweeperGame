@@ -89,12 +89,12 @@ public class Board {
         System.out.println("Game Board:");
         System.out.print(" ");
         for (int c = 0; c < boardSize; c++) {
-            System.out.print("   " + (c + 1));
+            System.out.print("   " + (c + 1));              // column names to letters
         }
         System.out.println();
 
         for (int r = 0; r < boardSize; r++) {
-            System.out.print((r + 1) + " ");
+            System.out.print((char) ('a' + r) + " ");       // row names to letters
             for (int c = 0; c < boardSize; c++) {
                 System.out.print("| " + showCharOnSquare(r, c) + COLOR_RESET + " ");
             }
