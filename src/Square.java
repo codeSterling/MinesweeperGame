@@ -1,17 +1,16 @@
-public class Cell {
+public class Square {
 
     private boolean revealed;
     private boolean flagged;
     private boolean hasBomb;
     private int numbersOfMinesNextTo;
-    private char symbol;
 
-    public Cell() {
+
+    public Square() {
         this.revealed = false;
         this.flagged = false;
         this.hasBomb = false;
         this.numbersOfMinesNextTo = 0;
-        this.symbol = ' ';
     }
 
     public boolean isRevealed() {
@@ -44,14 +43,7 @@ public class Cell {
 
     public void setNumbersOfMinesNextTo(int numbersOfMinesNextTo) {
         this.numbersOfMinesNextTo = numbersOfMinesNextTo;
-        this.symbol = (char) (numbersOfMinesNextTo+'0');
     }
 
-    public char getSymbol() {
-        return symbol;
-    }
 
-    public void setSymbol(char symbol) {
-        this.symbol = symbol;
-    }
 }
