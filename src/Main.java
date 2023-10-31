@@ -16,6 +16,7 @@ public class Main {
             } while (!scanner.hasNextInt());
 
             int boardSize = scanner.nextInt();
+            int boardSize = scanner.nextInt();
             game = new Game(boardSize, player);
 
             System.out.println("Välj svårighetsgrad (1-3):");
