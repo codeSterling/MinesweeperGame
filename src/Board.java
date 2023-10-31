@@ -5,8 +5,8 @@ public class Board {
     private Square[][] gameBoard;
     private int boardSize;
     private int numberOfMines;
-    private static final char BOMB_SYMBOL = '*';
-    private static final char FLAG_SYMBOL = 'F';
+    public static final char BOMB_SYMBOL = '*';
+    public static final char FLAG_SYMBOL = '§';
     String COLOR_RESET = "\u001B[0m";
 
     //Constructor for a class Board
@@ -159,7 +159,7 @@ public class Board {
         int numbersRevealed = 0;
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
-                if (gameBoard[i][j].isRevealed()) {
+                if (gameBoard[i][j].isRevealed() && !gameBoard[i][j].isFlagged()) {
                     numbersRevealed++;
                 }
             }
@@ -196,6 +196,21 @@ public class Board {
             default -> {
                 return "\u001B[37m";
             }
+        }
+    }
+
+
+    public void addFlagg(int row, int col) {
+        if(!gameBoard[row][col].isRevealed()) {
+            gameBoard[row][col].setRevealed(true);
+            gameBoard[row][col].setFlagged(true);
+        }
+    }
+
+    public void removeFlag(int row, int col) {
+        if(gameBoard[row][col].isFlagged()) {
+            gameBoard[row][col].setRevealed(false);
+            gameBoard[row][col].setFlagged(false);
         }
     }
 }
