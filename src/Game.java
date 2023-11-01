@@ -74,7 +74,9 @@ public class Game {
                     } else {
                         row--;
                         col--;
-                        if (gameBoard.squareExist(row, col)) {
+                        if (gameBoard.squareExist(row, col) && gameBoard.getGameBoard(row, col).isRevealed()) {
+                            System.out.println("Square already open, try another.");
+                        } else if(gameBoard.squareExist(row, col)){
                             if (gameBoard.getGameBoard(row, col).isHasBomb() && !gameBoard.getGameBoard(row, col).isFlagged()) { //If you hit a mine that isnt flagged
                                 gameBoard.revealCell(row, col);
                                 gameOver = true;
@@ -82,7 +84,7 @@ public class Game {
                                 gameBoard.printBoard();
                                 System.out.println("Game over! You hit a mine.");
 
-                            } else {
+                            } else if(gameBoard.squareExist(col, row)) {
                                 //  Shows revealCell method position with X
                                 gameBoard.revealCell(row, col);
                                 //Counts the number of X for winning
@@ -161,7 +163,9 @@ public class Game {
                 } else {
                     row--;
                     col--;
-                    if (gameBoard.squareExist(row, col)) {
+                    if(gameBoard.squareExist(row, col) && gameBoard.getGameBoard(row, col).isRevealed()) {
+                        System.out.println("Square already open, try another.");
+                    }else if (gameBoard.squareExist(row, col)) {
                         if(gameBoard.getGameBoard(row, col).isFlagged()) {
                             gameBoard.removeFlag(row, col);
                         } else {
