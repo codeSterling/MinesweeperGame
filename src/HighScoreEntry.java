@@ -10,9 +10,9 @@ public class HighScoreEntry {
     }
 
     public String getDifficultyString(double difficulty) {
-        if(difficulty == 0.1) {
+        if (difficulty == 0.1) {
             return "Easy";
-        } else if(difficulty == 0.2) {
+        } else if (difficulty == 0.2) {
             return "Medium";
         } else {
             return "Hard";
@@ -22,9 +22,11 @@ public class HighScoreEntry {
     public String getName() {
         return name;
     }
+
     public String getDifficulty() {
         return difficulty;
     }
+
     public long getTime() {
         return time;
     }

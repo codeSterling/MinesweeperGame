@@ -36,30 +36,30 @@ public class Main {
                     System.out.println("Choose difficulty: 1.Easy 2.Medium 3.Hard:");
                     difficultyChoice = scanner.nextInt();
 
-                switch (difficultyChoice) {
-                    case 1:
-                        // Set difficulty to easy
-                        game.setDifficulty(0.1);  // 10% of the squares have mines
-                        validDifficulty = true;
-                        break;
-                    case 2:
-                        // Set difficulty to medium
-                        game.setDifficulty(0.2);  // 20% of the squares have mines
-                        validDifficulty = true;
-                        break;
-                    case 3:
-                        // Set difficulty to hard
-                        game.setDifficulty(0.3);  // 30% of the squares have mines
-                        validDifficulty = true;
-                        break;
-                    default:
-                        System.out.println("Invalid input. Try again.");
+                    switch (difficultyChoice) {
+                        case 1:
+                            // Set difficulty to easy
+                            game.setDifficulty(0.1);  // 10% of the squares have mines
+                            validDifficulty = true;
+                            break;
+                        case 2:
+                            // Set difficulty to medium
+                            game.setDifficulty(0.2);  // 20% of the squares have mines
+                            validDifficulty = true;
+                            break;
+                        case 3:
+                            // Set difficulty to hard
+                            game.setDifficulty(0.3);  // 30% of the squares have mines
+                            validDifficulty = true;
+                            break;
+                        default:
+                            System.out.println("Invalid input. Try again.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Set a number between 1 and 3");
+                    scanner.next();
                 }
-            } catch(InputMismatchException e) {
-                System.out.println("Invalid input. Set a number between 1 and 3");
-                scanner.next();
             }
-        }
             System.out.println("Welcome " + player.getName() + ", to Minesweeper!\uD83D\uDCA5");
             game.start();
 

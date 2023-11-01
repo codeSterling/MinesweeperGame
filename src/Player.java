@@ -19,10 +19,12 @@ public class Player {
     public String getName() {
         return name;
     }
-//method that increases the number of wins by 1.
+
+    //method that increases the number of wins by 1.
     public void incrementWins() {
         this.wins++;
     }
+
     public int getWins() {
         return this.wins;
     }

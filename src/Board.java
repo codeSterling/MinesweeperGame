@@ -37,11 +37,11 @@ public class Board {
         return this.gameBoard[row][col];
     }
 
-//Restore the board
+    //Restore the board
     public void initializeBoard() {  //Creates the board
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                gameBoard[i][j] = new Square();
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                gameBoard[row][col] = new Square();
             }
         }
     }
@@ -49,72 +49,71 @@ public class Board {
     public void placeMines() {
         for (int i = 0; i < numberOfMines; i++) {
             while (true) {
-                int x = rand.nextInt(boardSize);
-                int y = rand.nextInt(boardSize);
-                if (!gameBoard[x][y].isHasBomb()) { //Only adds mine if square doesnt have a bomb already.
-                    gameBoard[x][y].setHasBomb(true);
+                int row = rand.nextInt(boardSize);
+                int col = rand.nextInt(boardSize);
+                if (!gameBoard[row][col].isHasBomb()) { //Only adds mine if square doesn't have a bomb already.
+                    gameBoard[row][col].setHasBomb(true);
                     break;
                 }
             }
         }
     }
 
-    public void revealCell(int r, int c) {
-        if (!gameBoard[r][c].isRevealed()) {
-            gameBoard[r][c].setRevealed(true);
-            showBlanksNextToSquare(r, c);  //Tries to open squares next to it.
+    public void revealCell(int row, int col) {
+        if (!gameBoard[row][col].isRevealed()) {
+            gameBoard[row][col].setRevealed(true);
+            showBlanksNextToSquare(row, col);  //Tries to open squares next to it, will only do if it's 0 bombs next to square.
         }
-
     }
 
-    public String showCharOnSquare(int r, int c) {
+    public String showCharOnSquare(int row, int col) {
         char selectedChar = ' ';
-        if(gameBoard[r][c].isRevealed()) {  //Only shows if the square is revealed.
-            if (gameBoard[r][c].isFlagged()) {
+        if (gameBoard[row][col].isRevealed()) {  //Only shows if the square is revealed.
+            if (gameBoard[row][col].isFlagged()) {
                 selectedChar = FLAG_SYMBOL;
-            } else if(gameBoard[r][c].isHasBomb()) {
+            } else if (gameBoard[row][col].isHasBomb()) {
                 selectedChar = BOMB_SYMBOL;
             } else {
-                selectedChar = (char) (gameBoard[r][c].getNumbersOfMinesNextTo() + '0');
+                selectedChar = (char) (gameBoard[row][col].getNumbersOfMinesNextTo() + '0');
             }
         }
-         return setColorsOnChar(selectedChar) + selectedChar;
+        return setColorsOnChar(selectedChar) + selectedChar; //returns tha color and char on that square
     }
 
     public void printBoard() {
         System.out.println("Game Board:");
         System.out.print(" ");
-        for (int c = 0; c < boardSize; c++) {
-            System.out.print("   " + (c + 1));              // column names to letters
+        for (int col = 0; col < boardSize; col++) {
+            System.out.print("   " + (col + 1));              // column names to letters
         }
         System.out.println();
 
-        for (int r = 0; r < boardSize; r++) {
-            System.out.print((char) ('a' + r) + " ");       // row names to letters
+        for (int row = 0; row < boardSize; row++) {
+            System.out.print((char) ('a' + row) + " ");       // row names to letters
             for (int c = 0; c < boardSize; c++) {
-                System.out.print("| " + showCharOnSquare(r, c) + COLOR_RESET + " ");
+                System.out.print("| " + showCharOnSquare(row, c) + COLOR_RESET + " ");
             }
             System.out.println("|");
         }
     }
 
-    public void fillInNumberOfMines() {
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                if (!gameBoard[i][j].isHasBomb()) {
-                    gameBoard[i][j].setNumbersOfMinesNextTo(countMinesNextToSquare(i, j));
+    public void fillInNumberOfMines() { //check alls squares to see how many bombs it's next to it.
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                if (!gameBoard[row][col].isHasBomb()) {
+                    gameBoard[row][col].setNumbersOfMinesNextTo(countMinesNextToSquare(row, col));
                 }
             }
         }
     }
 
-    public int countMinesNextToSquare(int r, int c) {
+    public int countMinesNextToSquare(int row, int col) {
         int numberOfMines = 0;
-        for (int i = -1; i <= 1; i++) {
-            for(int j = -1; j <= 1; j++) {  //This checks all square around original square
-                int newR = r + i;
-                int newC = c + j;
-                if (squareExist(newR,newC) && gameBoard[newR][newC].isHasBomb()) {
+        for (int increaseRow = -1; increaseRow <= 1; increaseRow++) {
+            for (int increaseCol = -1; increaseCol <= 1; increaseCol++) {  //This checks all square around original square
+                int newR = row + increaseRow;
+                int newC = col + increaseCol;
+                if (squareExist(newR, newC) && gameBoard[newR][newC].isHasBomb()) {
                     numberOfMines++;
                 }
             }
@@ -124,24 +123,24 @@ public class Board {
 
     //Shows the bomb when hitting it
     public void showBoardWhenLooses() {
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                if (gameBoard[i][j].isHasBomb()) {
-                    gameBoard[i][j].setRevealed(true);
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                if (gameBoard[row][col].isHasBomb()) {
+                    gameBoard[row][col].setRevealed(true);
                 }
             }
         }
     }
 
-    public void showBlanksNextToSquare(int r, int c) {
-        if (gameBoard[r][c].getNumbersOfMinesNextTo() == 0) {
-            for (int increaseR = -1; increaseR <= 1; increaseR++) {
-                for (int increaseC = -1; increaseC <= 1; increaseC++) {
-                    int newR = r + increaseR;
-                    int newC = c + increaseC;
-                    if( squareExist(newR, newC) && !gameBoard[newR][newC].isRevealed()) {
+    public void showBlanksNextToSquare(int row, int col) {
+        if (gameBoard[row][col].getNumbersOfMinesNextTo() == 0) {
+            for (int increaseRow = -1; increaseRow <= 1; increaseRow++) {
+                for (int increaseCol = -1; increaseCol <= 1; increaseCol++) {
+                    int newR = row + increaseRow;
+                    int newC = col + increaseCol;
+                    if (squareExist(newR, newC) && !gameBoard[newR][newC].isRevealed()) {
                         gameBoard[newR][newC].setRevealed(true);
-                        if(gameBoard[newR][newC].getNumbersOfMinesNextTo() == 0) {
+                        if (gameBoard[newR][newC].getNumbersOfMinesNextTo() == 0) {
                             showBlanksNextToSquare(newR, newC);
                         }
                     }
@@ -155,11 +154,11 @@ public class Board {
     }
 
 
-    public int numberOfSquaresRevealed() {
+    public int numberOfSquaresRevealed() { //Used to check win-condition
         int numbersRevealed = 0;
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                if (gameBoard[i][j].isRevealed() && !gameBoard[i][j].isFlagged()) {
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                if (gameBoard[row][col].isRevealed() && !gameBoard[row][col].isFlagged()) { // only adds if it's not a flag on that square
                     numbersRevealed++;
                 }
             }
@@ -167,7 +166,7 @@ public class Board {
         return numbersRevealed;
     }
 
-    public String setColorsOnChar(char value) {
+    public String setColorsOnChar(char value) { //used to get what color the char should be.
         switch (value) {
             case '1' -> {
                 return "\u001B[34m";
@@ -200,17 +199,8 @@ public class Board {
     }
 
 
-    public void addFlagg(int row, int col) {
-        if(!gameBoard[row][col].isRevealed()) {
-            gameBoard[row][col].setRevealed(true);
-            gameBoard[row][col].setFlagged(true);
-        }
-    }
-
-    public void removeFlag(int row, int col) {
-        if(gameBoard[row][col].isFlagged()) {
-            gameBoard[row][col].setRevealed(false);
-            gameBoard[row][col].setFlagged(false);
-        }
+    public void setFlagg(int row, int col) {
+        gameBoard[row][col].setFlagged(!gameBoard[row][col].isFlagged());
+        gameBoard[row][col].setRevealed(!gameBoard[row][col].isRevealed());
     }
 }
