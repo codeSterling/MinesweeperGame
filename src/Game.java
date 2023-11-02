@@ -142,7 +142,7 @@ public class Game {
     }
 
     public void printHighScore(ArrayList<HighScoreEntry> highScore) {
-        if(highScore.isEmpty()) {
+        if (highScore.isEmpty()) {
             System.out.println("Highscore is empty");
         } else {
             System.out.println();
@@ -186,7 +186,7 @@ public class Game {
 
     public void printMenu() {
         String answer;
-        while(true) {
+        while (true) {
             System.out.println();
             System.out.println("Do you want to:");
             System.out.println(player.isFirstGame() ? "1. Play the game" : "1. Play again");
@@ -222,61 +222,61 @@ public class Game {
 
     public void startUpGame() {
 
-            int boardSize = 4;
-            boolean validInput = false;
+        int boardSize = 4;
+        boolean validInput = false;
 
-            // Loop until the user enters a valid size of the playing field
-            while (!validInput) {
-                System.out.print("Set board size (4-9): ");
-                if (scanner.hasNextInt()) {
-                    boardSize = scanner.nextInt();
-                    if (boardSize >= 4 && boardSize <= 9) {
-                        validInput = true;
-                    } else {
-                        System.out.println("Invalid size. Set board size between 4 and 9.");
-                    }
+        // Loop until the user enters a valid size of the playing field
+        while (!validInput) {
+            System.out.print("Set board size (4-9): ");
+            if (scanner.hasNextInt()) {
+                boardSize = scanner.nextInt();
+                if (boardSize >= 4 && boardSize <= 9) {
+                    validInput = true;
                 } else {
                     System.out.println("Invalid size. Set board size between 4 and 9.");
-                    scanner.next();
                 }
+            } else {
+                System.out.println("Invalid size. Set board size between 4 and 9.");
+                scanner.next();
             }
-
-            setBoardSize(boardSize);
-            int difficultyChoice = 0;
-            boolean validDifficulty = false;
-            while (!validDifficulty) {
-                try {
-                    System.out.println("Choose difficulty: 1.Easy 2.Medium 3.Hard:");
-                    difficultyChoice = scanner.nextInt();
-
-                    switch (difficultyChoice) {
-                        case 1:
-                            // Set difficulty to easy
-                            setDifficulty(0.1);  // 10% of the squares have mines
-                            validDifficulty = true;
-                            break;
-                        case 2:
-                            // Set difficulty to medium
-                            setDifficulty(0.2);  // 20% of the squares have mines
-                            validDifficulty = true;
-                            break;
-                        case 3:
-                            // Set difficulty to hard
-                            setDifficulty(0.3);  // 30% of the squares have mines
-                            validDifficulty = true;
-                            break;
-                        default:
-                            System.out.println("Invalid input. Try again.");
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Invalid input. Set a number between 1 and 3");
-                    scanner.next();
-                }
-            }
-            System.out.println("Welcome " + player.getName() + ".");
-            start();
-
         }
+
+        setBoardSize(boardSize);
+        int difficultyChoice = 0;
+        boolean validDifficulty = false;
+        while (!validDifficulty) {
+            try {
+                System.out.println("Choose difficulty: 1.Easy 2.Medium 3.Hard:");
+                difficultyChoice = scanner.nextInt();
+
+                switch (difficultyChoice) {
+                    case 1:
+                        // Set difficulty to easy
+                        setDifficulty(0.1);  // 10% of the squares have mines
+                        validDifficulty = true;
+                        break;
+                    case 2:
+                        // Set difficulty to medium
+                        setDifficulty(0.2);  // 20% of the squares have mines
+                        validDifficulty = true;
+                        break;
+                    case 3:
+                        // Set difficulty to hard
+                        setDifficulty(0.3);  // 30% of the squares have mines
+                        validDifficulty = true;
+                        break;
+                    default:
+                        System.out.println("Invalid input. Try again.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Set a number between 1 and 3");
+                scanner.next();
+            }
+        }
+        System.out.println("Welcome " + player.getName() + ".");
+        start();
+
+    }
 
 
 }

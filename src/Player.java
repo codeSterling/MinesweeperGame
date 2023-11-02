@@ -5,7 +5,7 @@ public class Player {
     private String name;
     private int wins;
 
-    private boolean firstGame=true;
+    private boolean firstGame = true;
 
 
     //the constructor for the Player class
