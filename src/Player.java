@@ -5,6 +5,8 @@ public class Player {
     private String name;
     private int wins;
 
+    private boolean firstGame=true;
+
 
     //the constructor for the Player class
     public Player() {
@@ -20,6 +22,18 @@ public class Player {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isFirstGame() {
+        return firstGame;
+    }
+
+    public void setFirstGame(boolean firstGame) {
+        this.firstGame = firstGame;
+    }
+
     //method that increases the number of wins by 1.
     public void incrementWins() {
         this.wins++;
@@ -28,4 +42,5 @@ public class Player {
     public int getWins() {
         return this.wins;
     }
+
 }
