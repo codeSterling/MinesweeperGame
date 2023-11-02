@@ -118,20 +118,6 @@ public class Game {
         System.out.println("Thank you for playing!");
     }
 
-    public boolean playAgain() {
-        while (true) {
-            System.out.println("Do you want to play again? (Yes/No): ");
-            String answer = scanner.nextLine();
-            if (answer.equalsIgnoreCase("Yes")) {
-                return true;
-            } else if (answer.equalsIgnoreCase("No")) {
-                return false;
-            } else {
-                System.out.println("Invalid input. Please enter 'Yes' or 'No'. ");
-            }
-        }
-    }
-
     public long gameElapsedTime() {
         return (stopTime - startTime) / 1000; //Returns time in seconds
     }
