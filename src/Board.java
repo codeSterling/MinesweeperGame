@@ -133,7 +133,7 @@ public class Board {
     }
 
     public void showBlanksNextToSquare(int row, int col) {
-        if (gameBoard[row][col].getNumbersOfMinesNextTo() == 0) {
+        if (gameBoard[row][col].getNumbersOfMinesNextTo() == 0 && !gameBoard[row][col].isHasBomb()) {
             for (int increaseRow = -1; increaseRow <= 1; increaseRow++) {
                 for (int increaseCol = -1; increaseCol <= 1; increaseCol++) {
                     int newR = row + increaseRow;
